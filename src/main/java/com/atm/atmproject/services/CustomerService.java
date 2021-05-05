@@ -5,6 +5,7 @@ import com.atm.atmproject.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,8 +15,8 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     //get all customers
-    public void getAllCustomers() {
-        Iterable<Customer> allCustomers = customerRepository.findAll();
+    public Iterable<Customer> getAllCustomers() {
+       return customerRepository.findAll();
     }
 
     //get a customer by Id
@@ -32,7 +33,5 @@ public class CustomerService {
     public void updateCustomer(Customer customer, Long customerId) {
         customerRepository.save(customer);
     }
-
-
 
 }
