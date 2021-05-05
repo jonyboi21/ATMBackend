@@ -22,11 +22,12 @@ public class Account {
     @Column(name = "BALANCE")
     private Double balance;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
     public Account() {
     }
+
 
     public Long getId() {
         return id;
