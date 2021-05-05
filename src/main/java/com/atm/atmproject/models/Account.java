@@ -11,7 +11,7 @@ public class Account {
     private Long id;
 
     @Column(name = "type")
-    private Enum type;
+    private AccessType type;
 
     @Column(name = "NICKNAME")
     private String nickname;
