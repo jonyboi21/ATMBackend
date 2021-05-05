@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 public class BillController {
@@ -34,13 +35,28 @@ public class BillController {
     CustomerRepository customerRepository;
 
 
+
+
 //Get Bills By ID
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.GET)
     public ResponseEntity<?> getBillById (@PathVariable Long billId) {
         return new ResponseEntity<>(billRepo.findById(billId), HttpStatus.OK);
     }
 
-//    Create Bill
+// Delete a Bill
+@RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
+public ResponseEntity<?> deleteVote(@PathVariable Long billId){
+    billService.deleteBill(billId);
+    return new ResponseEntity<>(HttpStatus.OK);
+}
+
+// Update a Bill
+@RequestMapping(value="/bills/{billId}", method=RequestMethod.PUT)
+public ResponseEntity<?> updateBill(@RequestBody Bill bill, @PathVariable Long billId) {
+billService.updateBill(bill,billId);
+    return new ResponseEntity<>(HttpStatus.OK);
+}
+
 
 
 
