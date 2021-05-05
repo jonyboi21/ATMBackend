@@ -2,6 +2,7 @@ package com.atm.atmproject.service;
 
 import com.atm.atmproject.models.Account;
 import com.atm.atmproject.repositories.AccountRepository;
+import com.atm.atmproject.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class AccountService {
+
 
     @Autowired
     private AccountRepository accountRepository;
