@@ -22,7 +22,7 @@ public class Account {
     @Column(name = "BALANCE")
     private Double balance;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
     public Account() {
