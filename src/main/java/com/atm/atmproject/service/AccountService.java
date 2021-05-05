@@ -29,5 +29,7 @@ public class AccountService {
        return accountRepository.findByCustomerId(customerId);
 
     }
-
+    public Account createAccount(){
+       return accountRepository.createAccount();
+    }
 }
