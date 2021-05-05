@@ -28,6 +28,11 @@ public class CustomerService {
         customer = customerRepository.save(customer);
     }
 
+    //update a customer
+    public void updateCustomer(Customer customer, Long customerId) {
+        customerRepository.save(customer);
+    }
+
 
 
 }
