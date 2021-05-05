@@ -23,6 +23,9 @@ public class Customer {
     @JoinColumn(name = "ADDRESS")
     private Set<Address> addressSet;
 
+    private Set<Account> accounts;
+
+
     public Long getId() {
         return id;
     }
@@ -53,5 +56,13 @@ public class Customer {
 
     public void setAddressSet(Set<Address> addressSet) {
         this.addressSet = addressSet;
+    }
+
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
     }
 }
