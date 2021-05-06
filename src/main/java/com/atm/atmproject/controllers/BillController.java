@@ -28,12 +28,6 @@ public class BillController {
     private BillRepo billRepo;
 
     @Autowired
-    private Account account;
-
-    @Autowired
-    private Customer customer;
-
-    @Autowired
     private CustomerService customerService;
 
     @Autowired

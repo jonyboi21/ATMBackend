@@ -10,11 +10,11 @@ import java.util.Optional;
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
 
-    Optional<Account> findByCustomerId(Long customerId);
-
-    Iterable<Customer> findCustomerByAccountId(Long accountId);
-
-    Iterable<Account> findAllAccountsByCustomer(Long customerId);
+//    Optional<Account> findByCustomerId(Long customerId);
+//
+//    Iterable<Customer> findCustomerByAccountId(Long accountId);
+//
+//    Iterable<Account> findAllAccountsByCustomer(Long customerId);
 
 
 }

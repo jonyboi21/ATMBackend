@@ -15,22 +15,15 @@ public class Bill {
 
     private String nickname;
 
-   private String creation_date;
+    private String creation_date;
 
-    @Column(name = "Payment_Date")
-   private String payment_date;
+    private String payment_date;
 
-    @Column(name = "Upcoming_Payment_Date")
-   private String upcoming_payment_date;
+    private String upcoming_payment_date;
 
-    @Column(name = "payment_amount")
-   private Double payment_amount;
+    private Double payment_amount;
 
-    @JoinColumn(name = "Account_ID")
     private Long account_id;
-
-//   Get SEt
-
 
     public Long getId() {
         return id;
@@ -115,7 +108,7 @@ public class Bill {
                 ", payment_date='" + payment_date + '\'' +
                 ", upcoming_payment_date='" + upcoming_payment_date + '\'' +
                 ", payment_amount=" + payment_amount +
-                ", account_id='" + account_id + '\'' +
+                ", account_id=" + account_id +
                 '}';
     }
 }
