@@ -39,6 +39,7 @@ public class DepositController {
         }
     }
 
+    //get all deposits from specific account
 //    //get all deposits from specific account
 //    @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
 //    public ResponseEntity<?> getAllDepositsFromAccount (@PathVariable Long accountId) {

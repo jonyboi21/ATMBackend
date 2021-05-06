@@ -16,6 +16,12 @@ public class WithdrawalService {
     @Autowired
     AccountRepository accountRepository;
 
+//    public Iterable<Withdrawal> getAllWithdrawals(Long accountId) {
+//        return withdrawalRepository.findAll(accountId);
+//    public void getAllWithdrawals(Long accountId) {
+//        Iterable<Withdrawal> allWithdrawals = withdrawalRepository.findAll(accountId);
+//    }
+
     public Optional<Withdrawal> getWithdrawal(Long withdrawalId) {
         return withdrawalRepository.findById(withdrawalId);
     }
