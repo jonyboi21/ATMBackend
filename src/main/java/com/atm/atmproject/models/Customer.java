@@ -1,9 +1,5 @@
 package com.atm.atmproject.models;
-
-import org.apache.tomcat.jni.Address;
-
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,11 +16,8 @@ public class Customer {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-//    @OneToMany(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "ADDRESS")
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Address> addressSet;
-
-//    private Set<Account> accounts = new HashSet<>();
 
 
     public Long getId() {
@@ -58,12 +51,4 @@ public class Customer {
     public void setAddressSet(Set<Address> addressSet) {
         this.addressSet = addressSet;
     }
-
-//    public Set<Account> getAccounts() {
-//        return accounts;
-//    }
-//
-//    public void setAccounts(Set<Account> accounts) {
-//        this.accounts = accounts;
-//    }
 }

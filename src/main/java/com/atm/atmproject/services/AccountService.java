@@ -28,9 +28,9 @@ public class AccountService {
        return accountRepository.findAllAccountsByCustomer(customerId);
     }
     public void createAccount(Account account, Long customerId){
-        account.setCustomerId(customerId);
         accountRepository.save(account);
     }
+
     public Account updateAccount(Long accountId, Account account){
         account.setId(accountId);
         accountRepository.save(account);
