@@ -44,15 +44,7 @@ public class AccountController {
     @RequestMapping(value = "/customers/{customerId}/accounts",method = RequestMethod.POST)
     public ResponseEntity<?> createAnAccount(@RequestBody Account account, @PathVariable Long customerId ){
         accountService.createAccount(account,customerId);
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newAccountUri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(account.getId())
-                .toUri();
-        responseHeaders.setLocation(newAccountUri);
-
-            return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.PUT)

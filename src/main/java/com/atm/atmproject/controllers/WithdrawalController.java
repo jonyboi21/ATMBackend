@@ -25,6 +25,7 @@ public class WithdrawalController {
     @Autowired
     private WithdrawalService withdrawalService;
 
+
     @Autowired
     AccountService accountService;
 
@@ -46,6 +47,7 @@ public class WithdrawalController {
 //            throw new ResourceNotFoundException("Account with id " + accountId + " not found");
 //        }
 //    }
+
 
     //get all withdrawals from specific account
 //    @RequestMapping(value="/accounts/{accountId}/withdrawals", method=RequestMethod.GET)
@@ -70,6 +72,7 @@ public class WithdrawalController {
         responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(withdrawal.getId()).toUri());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 //    @RequestMapping(value="/polls/{pollId}", method=RequestMethod.GET)
 //    public ResponseEntity<?> getPoll(@PathVariable Long withdrawalId) {
 //        verifyAccount();
@@ -86,7 +89,6 @@ public class WithdrawalController {
 //        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(withdrawal.getId()).toUri());
 //        return new ResponseEntity<>(HttpStatus.CREATED);
 //    }
-
     //update an existing withdrawal
     @RequestMapping(value="/withdrawals/{withdrawalId}", method=RequestMethod.PUT)
     public ResponseEntity<?> updateWithdrawal(@RequestBody Withdrawal withdrawal, @PathVariable Long withdrawalId) {

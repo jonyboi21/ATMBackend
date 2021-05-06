@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends CrudRepository <Customer, Long> {
-    Optional<Account> findByAccountId(Long accountId);
+//    Optional<Account> findByAccountId(Long accountId);
 }
