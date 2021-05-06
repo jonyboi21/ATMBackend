@@ -1,14 +1,12 @@
 package com.atm.atmproject.services;
 
 import com.atm.atmproject.models.Account;
-import com.atm.atmproject.models.Customer;
 import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class AccountService {
@@ -27,29 +25,25 @@ public class AccountService {
     }
 
     public Iterable<Account> getAllAccountsFromCustomer(Long customerId){
-       return customerRepository
-               .findById(customerId)
-               .get()
-               .getAccounts();
-
+       return accountRepository.findAllAccountsByCustomer(customerId);
     }
     public void createAccount(Account account, Long customerId){
-        customerRepository
-                .findById(customerId)
-                .get()
-                .getAccounts()
-                .add(account);
+        accountRepository.save(account);
     }
-    public void updateAccount(Long accountId, Account account){
-        accountRepository
-                .findById(accountId).get().
+
+    public Account updateAccount(Long accountId, Account account){
+
+        account.setId(accountId);
+        accountRepository.save(account);
+        return account;
+    }
 
 
-        //       Optional<Customer> a = customerRepository.findById(accoundId);
-//       a.ifPresent(x->x.se(account));
-    }
+
 
     public void deleteAccount(Long accountId) {
         accountRepository.deleteById(accountId);
     }
+
+
 }

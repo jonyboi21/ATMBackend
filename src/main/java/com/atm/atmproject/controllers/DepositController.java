@@ -39,12 +39,13 @@ public class DepositController {
         }
     }
 
-    //get all deposits from specific account
-    @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllDepositsFromAccount (@PathVariable Long accountId) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(deposit.getId()).toUri());
-    }
+//    //get all deposits from specific account
+//    @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
+//    public ResponseEntity<?> getAllDepositsFromAccount (@PathVariable Long accountId) {
+//        HttpHeaders responseHeaders = new HttpHeaders();
+//        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(deposit.getId()).toUri());
+//        return null;
+//    }
 
     //get deposit by id
     @RequestMapping(value = "/desposits/{depositId}", method = RequestMethod.GET)
@@ -64,7 +65,7 @@ public class DepositController {
     }
 
     //update an existing deposit
-    @RequestMapping(value = "/deposits/{depositId", method = RequestMethod.PUT)
+    @RequestMapping(value = "/deposits/{depositId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateDeposit(@RequestBody Deposit deposit, @PathVariable Long depositId) {
         depositService.updateDeposit(deposit, depositId);
         return new ResponseEntity<>(HttpStatus.OK);

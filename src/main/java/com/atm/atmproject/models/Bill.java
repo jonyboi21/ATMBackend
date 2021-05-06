@@ -31,9 +31,9 @@ public class Bill {
     @Column(name = "payment_amount")
     Double payment_amount;
 
-    @OneToMany(cascade = CascadeType.DETACH)
+//    @OneToMany(cascade = CascadeType.DETACH)
     @JoinColumn(name = "Account_ID")
-    String account_id;
+    private Long account_id;
 
 //   Get SEt
 
@@ -102,11 +102,11 @@ public class Bill {
         this.payment_amount = payment_amount;
     }
 
-    public String getAccount_id() {
+    public Long getAccount_id() {
         return account_id;
     }
 
-    public void setAccount_id(String account_id) {
+    public void setAccount_id(Long account_id) {
         this.account_id = account_id;
     }
 

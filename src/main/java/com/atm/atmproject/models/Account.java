@@ -1,32 +1,31 @@
 package com.atm.atmproject.models;
-
 import com.atm.atmproject.enums.AccountType;
-
 import javax.persistence.*;
 
 @Entity
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ACCOUNT_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "ACCOUNT_ID")
     private Long id;
 
-    @Column(name = "type")
+//    @Column(name = "type")
     private AccountType type;
 
-    @Column(name = "NICKNAME")
+//    @Column(name = "NICKNAME")
     private String nickname;
 
-    @Column(name = "REWARDS")
+//    @Column(name = "REWARDS")
     private Integer rewards;
 
-    @Column(name = "BALANCE")
+//    @Column(name = "BALANCE")
     private Double balance;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_Account")
-    private Customer customer;
+    //@JoinColumn(name = "CUSTOMER_ID")
+    // No property accountId found for type Customer!
+    private Long customerId;
+    //private Customer customer;
 
     public Account() {
     }
@@ -38,6 +37,14 @@ public class Account {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
     public String getNickname() {
@@ -64,22 +71,23 @@ public class Account {
         this.balance = balance;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
+                ", type=" + type +
                 ", nickname='" + nickname + '\'' +
                 ", rewards=" + rewards +
                 ", balance=" + balance +
-                ", customer=" + customer +
+                ", customerId=" + customerId +
                 '}';
     }
 }
