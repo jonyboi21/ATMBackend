@@ -22,6 +22,7 @@ public class Withdrawal {
     private Long payeeId;
 
     @Column(name = "MEDIUM")
+    //@Enumerated
     private Enum withdrawalType;
 
     @Column(name = "AMOUNT")//deposit amount
