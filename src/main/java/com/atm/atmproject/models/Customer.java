@@ -3,6 +3,7 @@ package com.atm.atmproject.models;
 import org.apache.tomcat.jni.Address;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class Customer {
     @JoinColumn(name = "ADDRESS")
     private Set<Address> addressSet;
 
-    private Set<Account> accounts;
+    private Set<Account> accounts = new HashSet<>();
 
 
     public Long getId() {
