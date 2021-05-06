@@ -24,7 +24,7 @@ public class Customer {
     @JoinColumn(name = "ADDRESS")
     private Set<Address> addressSet;
 
-    private Set<Account> accounts = new HashSet<>();
+//    private Set<Account> accounts = new HashSet<>();
 
 
     public Long getId() {
@@ -59,11 +59,11 @@ public class Customer {
         this.addressSet = addressSet;
     }
 
-    public Set<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
-    }
+//    public Set<Account> getAccounts() {
+//        return accounts;
+//    }
+//
+//    public void setAccounts(Set<Account> accounts) {
+//        this.accounts = accounts;
+//    }
 }
