@@ -40,11 +40,11 @@ public class DepositController {
     }
 
     //get all deposits from specific account
-    @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllDepositsFromAccount (@PathVariable Long accountId) {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(deposit.getId()).toUri());
-    }
+//    @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
+//    public ResponseEntity<?> getAllDepositsFromAccount (@PathVariable Long accountId) {
+//        HttpHeaders responseHeaders = new HttpHeaders();
+//        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(deposit.getId()).toUri());
+//    }
 
     //get deposit by id
     @RequestMapping(value = "/desposits/{depositId}", method = RequestMethod.GET)

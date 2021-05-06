@@ -20,7 +20,7 @@ public class Customer {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.DETACH)
+//    @OneToMany(cascade = CascadeType.DETACH)
     @JoinColumn(name = "ADDRESS")
     private Set<Address> addressSet;
 

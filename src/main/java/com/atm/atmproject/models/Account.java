@@ -9,7 +9,6 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ACCOUNT_ID")
     private Long id;
 
     @Column(name = "type")
@@ -24,7 +23,6 @@ public class Account {
     @Column(name = "BALANCE")
     private Double balance;
 
-    @JoinColumn(name = "CUSTOMER_ID")
     private Long customerId;
 
     public Account() {

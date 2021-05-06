@@ -6,32 +6,26 @@ import javax.persistence.*;
 public class Bill {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "Bill_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "Status")
     private String status;
 
-    @Column(name = "Payee")
     private String payee;
 
-    @Column(name = "Nickname")
-    String nickname;
+    private String nickname;
 
-    @Column(name = "Creation_Date")
-    String creation_date;
+   private String creation_date;
 
     @Column(name = "Payment_Date")
-    String payment_date;
+   private String payment_date;
 
     @Column(name = "Upcoming_Payment_Date")
-    String upcoming_payment_date;
+   private String upcoming_payment_date;
 
     @Column(name = "payment_amount")
-    Double payment_amount;
+   private Double payment_amount;
 
-//    @OneToMany(cascade = CascadeType.DETACH)
     @JoinColumn(name = "Account_ID")
     private Long account_id;
 

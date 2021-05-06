@@ -32,7 +32,6 @@ public class AccountService {
         accountRepository.save(account);
     }
     public Account updateAccount(Long accountId, Account account){
-
         account.setId(accountId);
         accountRepository.save(account);
         return account;
