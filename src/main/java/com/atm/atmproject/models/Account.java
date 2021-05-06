@@ -1,5 +1,7 @@
 package com.atm.atmproject.models;
 
+import com.atm.atmproject.enums.AccountType;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +13,7 @@ public class Account {
     private Long id;
 
     @Column(name = "type")
-    private AccessType type;
+    private AccountType type;
 
     @Column(name = "NICKNAME")
     private String nickname;
@@ -23,6 +25,7 @@ public class Account {
     private Double balance;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_Account")
     private Customer customer;
 
     public Account() {

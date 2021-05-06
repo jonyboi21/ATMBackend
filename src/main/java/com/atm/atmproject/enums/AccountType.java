@@ -3,8 +3,7 @@ package com.atm.atmproject.enums;
 public enum AccountType {
     SAVINGS("Savings"),
     CHECKING("Checking"),
-    CREDIT("Credit"),
-    ;
+    CREDIT("Credit");
 
     private final String type;
 
