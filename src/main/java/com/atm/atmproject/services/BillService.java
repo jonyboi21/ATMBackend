@@ -24,22 +24,37 @@ public class BillService {
     @Autowired
     private CustomerService customerService;
 
+
+//    Get all Bills
+    public void getAllBills( ){
+        billRepo.findAll();
+    }
+
+    //    Delete Bill
     public void deleteBill(Long billId){
         billRepo.deleteById(billId);
     }
 
-    public void createBill (Long billId, Bill bill) {
+    // Create Bill
+    public void createBill (Bill bill) {
         billRepo.save(bill);
     }
 
-
+    // Update Bill
     public void updateBill(Bill bill, Long billId) {
         // Save the entity
         billRepo.save(bill);
     }
 
+//    Get all bills by customer id
+    public Optional<Bill> getAllBillsCusID(Long customerID) {
+        return billRepo.findById(customerID);
+    }
 
-
+//    Get all Bills by account id
+public Optional<Bill> getAllBillsAccID(Long accountId) {
+    return billRepo.findById(accountId);
+}
 
 
 }
