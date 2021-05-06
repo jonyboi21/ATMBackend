@@ -24,9 +24,8 @@ public class Account {
     @Column(name = "BALANCE")
     private Double balance;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_Account")
-    private Customer customer;
+    @JoinColumn(name = "CUSTOMER_ID")
+    private Long customerId;
 
     public Account() {
     }
@@ -38,6 +37,22 @@ public class Account {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
     public String getNickname() {
@@ -64,22 +79,15 @@ public class Account {
         this.balance = balance;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
+                ", type=" + type +
                 ", nickname='" + nickname + '\'' +
                 ", rewards=" + rewards +
                 ", balance=" + balance +
-                ", customer=" + customer +
+                ", customerId=" + customerId +
                 '}';
     }
 }
