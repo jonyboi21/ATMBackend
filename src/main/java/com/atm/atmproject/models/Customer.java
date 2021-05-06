@@ -7,18 +7,14 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CUSTOMER_ID")
     private Long id;
 
-    @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @Column(name = "LAST_NAME")
     private String lastName;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Address> addressSet;
-
 
     public Long getId() {
         return id;
@@ -50,5 +46,15 @@ public class Customer {
 
     public void setAddressSet(Set<Address> addressSet) {
         this.addressSet = addressSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", addressSet=" + addressSet +
+                '}';
     }
 }

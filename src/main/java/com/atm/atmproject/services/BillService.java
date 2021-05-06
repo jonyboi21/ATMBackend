@@ -16,9 +16,6 @@ public class BillService {
     private BillRepo billRepo;
 
     @Autowired
-    private Customer customer;
-
-    @Autowired
     private CustomerRepository customerRepository;
 
     @Autowired

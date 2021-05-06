@@ -34,11 +34,11 @@ public class AccountController {
         return new ResponseEntity<> (a,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/customers/{customerId}/accounts",method = RequestMethod.GET)
-    public ResponseEntity<?> getAllAccountsFromCustomer(@PathVariable Long customerId){
-        Iterable<Account> a = accountService.getAllAccountsFromCustomer(customerId);
-        return new ResponseEntity<>(a,HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/customers/{customerId}/accounts",method = RequestMethod.GET)
+//    public ResponseEntity<?> getAllAccountsFromCustomer(@PathVariable Long customerId){
+//        Iterable<Account> a = accountService.getAllAccountsFromCustomer(customerId);
+//        return new ResponseEntity<>(a,HttpStatus.OK);
+//    }
 
 
     @RequestMapping(value = "/customers/{customerId}/accounts",method = RequestMethod.POST)

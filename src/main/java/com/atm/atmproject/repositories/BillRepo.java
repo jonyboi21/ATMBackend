@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface BillRepo extends CrudRepository<Bill,Long> {
 
 
-    Iterable<Bill> getAllBills(Long customerId);
+//    Iterable<Bill> getAllBills(Long customerId);
 }
