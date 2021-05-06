@@ -28,8 +28,8 @@ public class DepositController {
         return new ResponseEntity<>(depositRepository.findById(depositId), HttpStatus.OK);
     }
 
-    //create a deposit
-    @RequestMapping(value = )
+//    //create a deposit
+//    @RequestMapping(value = )
 
     //update an existing deposit
 
