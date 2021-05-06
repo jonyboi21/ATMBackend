@@ -7,28 +7,17 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "ACCOUNT_ID")
     private Long id;
 
-//    @Column(name = "type")
     private AccountType type;
 
-//    @Column(name = "NICKNAME")
     private String nickname;
 
-//    @Column(name = "REWARDS")
     private Integer rewards;
 
-//    @Column(name = "BALANCE")
     private Double balance;
 
-    //@JoinColumn(name = "CUSTOMER_ID")
-    // No property accountId found for type Customer!
     private Long customerId;
-    //private Customer customer;
-
-    public Account() {
-    }
 
 
     public Long getId() {

@@ -6,22 +6,16 @@ import javax.persistence.*;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ADDRESS_ID")
     private Long id;
 
-    @Column (name = "STREET_NUMBER")
     private String streetNumber;
 
-    @Column (name = "STREET_NAME")
     private String streetName;
 
-    @Column (name = "CITY")
     private String city;
 
-    @Column (name = "STATE")
     private String state;
 
-    @Column (name = "ZIP")
     private String zip;
 
     public Long getId() {
