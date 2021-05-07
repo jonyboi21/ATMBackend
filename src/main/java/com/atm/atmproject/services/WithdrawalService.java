@@ -14,7 +14,6 @@ public class WithdrawalService {
     private WithdrawalRepository withdrawalRepository;
 
     public Iterable<Withdrawal> findAllWithdrawalsByAccountId(Long accountId){
-
         return withdrawalRepository.findAllWithdrawalsByAccountId(accountId);
     }
 
