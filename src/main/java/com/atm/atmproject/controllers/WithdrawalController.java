@@ -38,23 +38,13 @@ public class WithdrawalController {
             throw new ResourceNotFoundException("Account with id " + accountId + " not found");
         }
     }
-//    @Autowired
-//    AccountService accountService;
-//
-//    public void verifyAccount(Long accountId) throws ResourceNotFoundException {
-//        Optional<Account> account = accountService.getAccount(accountId);
-//        if (account.isEmpty()) {
-//            throw new ResourceNotFoundException("Account with id " + accountId + " not found");
-//        }
-//    }
 
-
-    //get all withdrawals from specific account
-//    @RequestMapping(value="/accounts/{accountId}/withdrawals", method=RequestMethod.GET)
-//    public Iterable<Withdrawal> getAllWithdrawals(@PathVariable Long accountId) {
-//        verifyAccount(accountId);
-//        return withdrawalService.getAllWithdrawals(accountId);
-//    }
+    //get all withdrawals for a specific account
+    @RequestMapping(value = "/accounts/{accountId}/withdrawal",method = RequestMethod.GET)
+    public ResponseEntity<?> findAllWithdrawalsByAccountId(@PathVariable Long accountId){
+        Iterable<Withdrawal> a = withdrawalService.findAllWithdrawalsByAccountId(accountId);
+        return new ResponseEntity<>(a,HttpStatus.OK);
+    }
 
     //get withdrawal by id
     @RequestMapping(value="/withdrawals/{withdrawalId}", method=RequestMethod.GET)
@@ -73,28 +63,13 @@ public class WithdrawalController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @RequestMapping(value="/polls/{pollId}", method=RequestMethod.GET)
-//    public ResponseEntity<?> getPoll(@PathVariable Long withdrawalId) {
-//        verifyAccount();
-//        withdrawalService.getWithdrawal(withdrawalId);
-//        return new ResponseEntity<>(withdrawalRepository.findById(withdrawalId), HttpStatus.OK);
-//    }
-//
-//    //create a withdrawal
-//    @RequestMapping(value = "/accounts/{accountId}/withdrawals", method = RequestMethod.POST)
-//    public ResponseEntity<?> createWithdrawal (@PathVariable Long accountId, @RequestBody Withdrawal withdrawal) {
-//        verifyAccount(accountId);
-//        withdrawalService.createWithdrawal(accountId, withdrawal);
-//        HttpHeaders responseHeaders = new HttpHeaders();
-//        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(withdrawal.getId()).toUri());
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
     //update an existing withdrawal
     @RequestMapping(value="/withdrawals/{withdrawalId}", method=RequestMethod.PUT)
     public ResponseEntity<?> updateWithdrawal(@RequestBody Withdrawal withdrawal, @PathVariable Long withdrawalId) {
         withdrawalService.updateWithdrawal(withdrawal, withdrawalId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     //delete a specific withdrawal
     @RequestMapping(value = "/withdrawals/{withdrawalId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteWithdrawal(@PathVariable Long withdrawalId){
