@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Bill {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String status;

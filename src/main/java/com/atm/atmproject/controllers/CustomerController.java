@@ -21,7 +21,7 @@ public class CustomerController {
     }
 
     //get customer by Id
-    @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/customers/{customerId}", method = RequestMethod.GET)
     public ResponseEntity<?> getCustomerById (@PathVariable Long customerId) {
         customerService.getCustomerById(customerId);
         return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
@@ -35,14 +35,14 @@ public class CustomerController {
     }
 
     //update a customer
-    @RequestMapping(value = "/customers/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/customers/{customerId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCustomer (@RequestBody Customer customer, @PathVariable Long customerId) {
         customerService.updateCustomer(customer, customerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //delete a customer
-    @RequestMapping(value = "/customers/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/customers/{customerId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCustomer (@PathVariable Long customerId) {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.OK);

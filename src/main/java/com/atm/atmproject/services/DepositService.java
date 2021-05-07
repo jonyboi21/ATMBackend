@@ -5,20 +5,21 @@ import com.atm.atmproject.repositories.DepositRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DepositService {
 
     @Autowired
     private DepositRepository depositRepository;
 
-    //get all deposits from a specific account
-//    public Iterable<Deposit> getAllDepositsFromAccount(Long depositId) {
-//        depositRepository.findAllById(dep
-//    }
+    public Iterable<Deposit> findAllByAccountId(Long accountId) {
+        return depositRepository.findAllByAccountId(accountId);
+    }
 
     //get a deposit by Id
-    public void getDepositById(Long depositId) {
-        depositRepository.findById(depositId);
+    public Optional<Deposit> getDepositById(Long depositId) {
+        return depositRepository.findById(depositId);
     }
 
     //create a deposit
@@ -28,7 +29,6 @@ public class DepositService {
 
     //update a deposit
     public void updateDeposit(Deposit deposit, Long depositId) {
-        deposit.setId(depositId);
         depositRepository.save(deposit);
     }
 
