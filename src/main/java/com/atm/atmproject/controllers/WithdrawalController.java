@@ -38,23 +38,13 @@ public class WithdrawalController {
             throw new ResourceNotFoundException("Account with id " + accountId + " not found");
         }
     }
-//    @Autowired
-//    AccountService accountService;
-//
-//    public void verifyAccount(Long accountId) throws ResourceNotFoundException {
-//        Optional<Account> account = accountService.getAccount(accountId);
-//        if (account.isEmpty()) {
-//            throw new ResourceNotFoundException("Account with id " + accountId + " not found");
-//        }
-//    }
 
+    @RequestMapping(value = "/accounts/{accountId}/withdrawal",method = RequestMethod.GET)
+    public ResponseEntity<?> findAllWithdrawalsByAccountId(@PathVariable Long accountId){
+        Iterable<Withdrawal> a = withdrawalService.findAllWithdrawalsByAccountId(accountId);
+        return new ResponseEntity<>(a,HttpStatus.OK);
+    }
 
-    //get all withdrawals from specific account
-//    @RequestMapping(value="/accounts/{accountId}/withdrawals", method=RequestMethod.GET)
-//    public Iterable<Withdrawal> getAllWithdrawals(@PathVariable Long accountId) {
-//        verifyAccount(accountId);
-//        return withdrawalService.getAllWithdrawals(accountId);
-//    }
 
     //get withdrawal by id
     @RequestMapping(value="/withdrawals/{withdrawalId}", method=RequestMethod.GET)

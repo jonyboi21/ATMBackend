@@ -1,5 +1,9 @@
 package com.atm.atmproject.models;
 
+import com.atm.atmproject.enums.Medium;
+import com.atm.atmproject.enums.Status;
+import com.atm.atmproject.enums.Transactions;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,19 +12,21 @@ public class Withdrawal {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    private Enum transactionsType;
+    private Transactions type;
 
     private String transactionDate;
 
-    private Enum status;
+    private Status status;
 
     private Long payeeId;
 
-    private Enum withdrawalType;
+    private Medium medium;
 
     private Double amount;
 
     private String description;
+
+    private Long accountId;
 
     public Long getId() {
         return id;
@@ -30,12 +36,12 @@ public class Withdrawal {
         this.id = id;
     }
 
-    public Enum getTransactionsType() {
-        return transactionsType;
+    public Transactions getType() {
+        return type;
     }
 
-    public void setTransactionsType(Enum transactionsType) {
-        this.transactionsType = transactionsType;
+    public void setType(Transactions type) {
+        this.type = type;
     }
 
     public String getTransactionDate() {
@@ -46,11 +52,11 @@ public class Withdrawal {
         this.transactionDate = transactionDate;
     }
 
-    public Enum getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Enum status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -62,12 +68,12 @@ public class Withdrawal {
         this.payeeId = payeeId;
     }
 
-    public Enum getWithdrawalType() {
-        return withdrawalType;
+    public Medium getMedium() {
+        return medium;
     }
 
-    public void setWithdrawalType(Enum withdrawalType) {
-        this.withdrawalType = withdrawalType;
+    public void setMedium(Medium medium) {
+        this.medium = medium;
     }
 
     public Double getAmount() {
@@ -86,17 +92,26 @@ public class Withdrawal {
         this.description = description;
     }
 
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
     @Override
     public String toString() {
         return "Withdrawal{" +
                 "id=" + id +
-                ", transactionsType=" + transactionsType +
+                ", type=" + type +
                 ", transactionDate='" + transactionDate + '\'' +
                 ", status=" + status +
                 ", payeeId=" + payeeId +
-                ", withdrawalType=" + withdrawalType +
+                ", medium=" + medium +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
+                ", accountId=" + accountId +
                 '}';
     }
 }
