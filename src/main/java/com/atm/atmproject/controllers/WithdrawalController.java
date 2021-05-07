@@ -40,8 +40,8 @@ public class WithdrawalController {
 
     //get all withdrawals for a specific account
     @RequestMapping(value = "/accounts/{accountId}/withdrawal",method = RequestMethod.GET)
-    public ResponseEntity<?> findAllWithdrawalsByAccountId(@PathVariable Long accountId){
-        Iterable<Withdrawal> a = withdrawalService.findAllWithdrawalsByAccountId(accountId);
+    public ResponseEntity<?> findAllByAccountId(@PathVariable Long accountId){
+        Iterable<Withdrawal> a = withdrawalService.findAllByAccountId(accountId);
         return new ResponseEntity<>(a,HttpStatus.OK);
     }
 

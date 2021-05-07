@@ -13,8 +13,8 @@ public class DepositService {
     @Autowired
     private DepositRepository depositRepository;
 
-    public Iterable<Deposit> findAllDepositsByAccountId(Long accountId) {
-        return depositRepository.findAllDepositsByAccountId(accountId);
+    public Iterable<Deposit> findAllByAccountId(Long accountId) {
+        return depositRepository.findAllByAccountId(accountId);
     }
 
     //get a deposit by Id
