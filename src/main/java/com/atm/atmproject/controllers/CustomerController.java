@@ -1,7 +1,6 @@
 package com.atm.atmproject.controllers;
 
 import com.atm.atmproject.models.Customer;
-import com.atm.atmproject.repositories.CustomerRepository;
 import com.atm.atmproject.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +13,6 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    private CustomerRepository customerRepository;
-
     //get all customers
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Customer>> getAllCustomers() {
@@ -28,7 +24,7 @@ public class CustomerController {
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getCustomerById (@PathVariable Long customerId) {
         customerService.getCustomerById(customerId);
-        return new ResponseEntity<>(customerRepository.findById(customerId), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
     }
 
     //create a customer
@@ -42,6 +38,13 @@ public class CustomerController {
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateCustomer (@RequestBody Customer customer, @PathVariable Long customerId) {
         customerService.updateCustomer(customer, customerId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //delete a customer
+    @RequestMapping(value = "/customers/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCustomer (@PathVariable Long customerId) {
+        customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

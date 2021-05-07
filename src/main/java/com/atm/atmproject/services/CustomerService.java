@@ -15,23 +15,27 @@ public class CustomerService {
 
     //get all customers
     public Iterable<Customer> getAllCustomers() {
-       return customerRepository.findAll();
+        return customerRepository.findAll();
     }
 
     //get a customer by Id
     public Optional<Customer> getCustomerById(Long customerId) {
-        Optional<Customer> c = customerRepository.findById(customerId);
-        return c;
+        return customerRepository.findById(customerId);
     }
 
     //create a customer
-    public void createCustomer(Customer customer) {
+    public void createCustomer (Customer customer){
         customerRepository.save(customer);
     }
 
-    //update a customer
-    public void updateCustomer(Customer customer, Long customerId) {
-        customerRepository.save(customer);
-    }
+        //update a customer
+        public void updateCustomer (Customer customer, Long customerId){
+            customerRepository.save(customer);
+        }
 
-}
+        //delete a customer
+        public void deleteCustomer (Long customerId){
+            customerRepository.deleteById(customerId);
+        }
+
+    }
