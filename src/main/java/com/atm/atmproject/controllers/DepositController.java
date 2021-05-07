@@ -34,8 +34,8 @@ public class DepositController {
 
     //get all deposits from specific account
     @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllDepositsFromAccount (@PathVariable Long accountId) {
-        depositService.findAllDepositsByAccountId(accountId);
+    public ResponseEntity<?> getAllFromAccount (@PathVariable Long accountId) {
+        depositService.findAllByAccountId(accountId);
         return new ResponseEntity<>(depositService.getDepositById(accountId), HttpStatus.OK);
     }
 
