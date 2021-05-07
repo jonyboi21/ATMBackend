@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private AccountType type;
@@ -16,6 +16,7 @@ public class Account {
     private Integer rewards;
 
     private Double balance;
+
 
     private Long customerId;
 

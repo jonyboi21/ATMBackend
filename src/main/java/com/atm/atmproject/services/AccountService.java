@@ -24,9 +24,10 @@ public class AccountService {
         return accountRepository.findById(accountId);
     }
 
-//    public Iterable<Account> getAllAccountsFromCustomer(Long customerId){
-//       return accountRepository.findAllAccountsByCustomer(customerId);
-//    }
+    public Iterable<Account> getAllAccountsFromCustomer(Long customerId){
+
+    return accountRepository.findAllByCustomerId(customerId);
+    }
     public void createAccount(Account account, Long customerId){
         accountRepository.save(account);
     }
