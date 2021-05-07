@@ -20,8 +20,8 @@ public class CustomerController {
     //get all customers
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Customer>> getAllCustomers() {
-        customerService.getAllCustomers();
-        return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
+        Iterable<Customer> c = customerService.getAllCustomers();
+        return new ResponseEntity<>(c, HttpStatus.OK);
     }
 
     //get customer by Id
