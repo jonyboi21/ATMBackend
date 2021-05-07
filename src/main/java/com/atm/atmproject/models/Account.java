@@ -17,7 +17,6 @@ public class Account {
 
     private Double balance;
 
-
     private Long customerId;
 
 

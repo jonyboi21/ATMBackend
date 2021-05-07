@@ -1,27 +1,42 @@
 package com.atm.atmproject.models;
 
+import com.atm.atmproject.enums.Medium;
+import com.atm.atmproject.enums.Status;
+import com.atm.atmproject.enums.Transactions;
+
 import javax.persistence.*;
 
 @Entity
 public class Deposit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Enum transactionsType;
+    private Transactions type;
 
     private String transactionDate;
 
-    private Enum status;
+    private Status status;
 
     private Long payeeId;
 
-    private Enum depositType;
+    private Medium medium;
 
     private Double amount;
 
     private String description;
+
+    private Long accountId;
+
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
 
     public Long getId() {
         return id;
@@ -31,12 +46,12 @@ public class Deposit {
         this.id = id;
     }
 
-    public Enum getTransactionsType() {
-        return transactionsType;
+    public Transactions getType() {
+        return type;
     }
 
-    public void setTransactionsType(Enum transactionsType) {
-        this.transactionsType = transactionsType;
+    public void setType(Transactions type) {
+        this.type = type;
     }
 
     public String getTransactionDate() {
@@ -47,11 +62,11 @@ public class Deposit {
         this.transactionDate = transactionDate;
     }
 
-    public Enum getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Enum status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -63,12 +78,12 @@ public class Deposit {
         this.payeeId = payeeId;
     }
 
-    public Enum getDepositType() {
-        return depositType;
+    public Medium getMedium() {
+        return medium;
     }
 
-    public void setDepositType(Enum depositType) {
-        this.depositType = depositType;
+    public void setMedium(Medium medium) {
+        this.medium = medium;
     }
 
     public Double getAmount() {
@@ -91,11 +106,11 @@ public class Deposit {
     public String toString() {
         return "Deposit{" +
                 "id=" + id +
-                ", transactionsType=" + transactionsType +
+                ", type=" + type +
                 ", transactionDate='" + transactionDate + '\'' +
                 ", status=" + status +
                 ", payeeId=" + payeeId +
-                ", depositType=" + depositType +
+                ", medium=" + medium +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
                 '}';
