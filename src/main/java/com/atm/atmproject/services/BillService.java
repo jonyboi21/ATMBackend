@@ -22,14 +22,19 @@ public class BillService {
     private CustomerService customerService;
 
 
-//    Get all Bills
-    public void getAllBills( ){
-        billRepo.findAll();
+    //get all bills for specific account
+    public Iterable<Bill> getAllByAccountId(Long accountId) {
+        return billRepo.getAllBillsByAccountId(accountId);
     }
 
-    //    Delete Bill
-    public void deleteBill(Long billId){
-        billRepo.deleteById(billId);
+    //get all bills by customer
+    public Iterable<Bill> getAllByCustomerId(Long customerId) {
+        return billRepo.getAllBillsByCustomerId(customerId);
+    }
+
+    //get bill by Id
+    public Optional<Bill> getById(Long billId) {
+        return billRepo.findById(billId);
     }
 
     // Create Bill
@@ -43,15 +48,8 @@ public class BillService {
         billRepo.save(bill);
     }
 
-//    Get all bills by customer id
-    public Optional<Bill> getAllBillsCusID(Long customerID) {
-        return billRepo.findById(customerID);
+    //delete a bill
+    public void deleteBill(Long billId) {
+        billRepo.deleteById(billId);
     }
-
-//    Get all Bills by account id
-public Optional<Bill> getAllBillsAccID(Long accountId) {
-    return billRepo.findById(accountId);
-}
-
-
 }

@@ -25,9 +25,6 @@ public class BillController {
     private BillService billService;
 
     @Autowired
-    private BillRepo billRepo;
-
-    @Autowired
     private CustomerService customerService;
 
     @Autowired
@@ -40,19 +37,26 @@ public class BillController {
     private AccountRepository accountRepository;
 
 
-
-//Get Bills By ID
-    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getBillByBillId (@PathVariable Long billId) {
-        return new ResponseEntity<>(billRepo.findById(billId), HttpStatus.OK);
+    //get all bills for specific account
+    @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long accountId) {
+        Iterable<Bill> a = billService.getAllByAccountId(accountId);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
-    // Delete a Bill
-    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteVote(@PathVariable Long billId){
-    billService.deleteBill(billId);
-    return new ResponseEntity<>(HttpStatus.OK);
-}
+    //get bill by id
+    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getBillById(@PathVariable Long billId) {
+        Optional<Bill> b = billService.getById(billId);
+        return new ResponseEntity<>(b, HttpStatus.OK);
+    }
+
+    //get all bills by customer
+    @RequestMapping(value = "/customers/{customerId}/bills", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long customerId) {
+        Iterable<Bill> c = billService.getAllByCustomerId(customerId);
+        return new ResponseEntity<>(c, HttpStatus.OK);
+    }
 
     // Update a Bill
     @RequestMapping(value="/bills/{billId}", method=RequestMethod.PUT)
@@ -64,27 +68,15 @@ public class BillController {
 // Create A Bill
     @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.POST)
     public ResponseEntity<?> createVote (@RequestBody Bill bill) {
-
     billService.createBill(bill);
-    HttpHeaders responseHeaders = new HttpHeaders();
-    responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{id}").buildAndExpand(bill.getId()).toUri());
     return new ResponseEntity<>(HttpStatus.CREATED);
 }
 
-// Get Bill by Customer Id.
-@RequestMapping(value="/customers/{customerId}/bills", method=RequestMethod.GET)
-public Optional<Bill> getBillsByCustomerId(@PathVariable Long customerId) {
-
-    return billService.getAllBillsCusID(customerId);
-}
-
-// Get Bill by Account Id.
-@RequestMapping(value="/accounts/{accountId}/bills", method=RequestMethod.GET)
-public Optional<Bill> getBillsByAccountId(@PathVariable Long accountId) {
-
-    return billService.getAllBillsAccID(accountId);
-}
+// delete a bill
+    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteBill (@PathVariable Long billId) {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 
