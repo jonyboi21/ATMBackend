@@ -1,4 +1,5 @@
 package com.atm.atmproject.models;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -6,7 +7,7 @@ import java.util.Set;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private String firstName;
@@ -16,12 +17,12 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Address> addressSet;
 
-    public Long getId() {
+    public Long getCustomerId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCustomerId(Long customerId) {
+        this.id = customerId;
     }
 
     public String getFirstName() {
@@ -51,7 +52,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
+                "customerId=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", addressSet=" + addressSet +

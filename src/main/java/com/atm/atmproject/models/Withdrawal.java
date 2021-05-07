@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Withdrawal {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private Enum transactionsType;
