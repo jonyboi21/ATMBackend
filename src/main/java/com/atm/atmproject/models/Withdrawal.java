@@ -6,31 +6,21 @@ import javax.persistence.*;
 public class Withdrawal {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "WITHDRAWAL_ID")
     private Long id;
 
-    @Column(name = "TYPE")
     private Enum transactionsType;
 
-    @Column(name = "TRANSACTION_DATE")
     private String transactionDate;
 
-    @Column(name = "STATUS")
     private Enum status;
 
-    @Column(name = "PAYEE_ID")
     private Long payeeId;
 
-    @Column(name = "MEDIUM")
     private Enum withdrawalType;
 
-    @Column(name = "AMOUNT")//deposit amount
     private Double amount;
 
-    @Column(name = "DESCRIPTION")
     private String description;
-
-    public Withdrawal (){}
 
     public Long getId() {
         return id;
@@ -94,5 +84,19 @@ public class Withdrawal {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Withdrawal{" +
+                "id=" + id +
+                ", transactionsType=" + transactionsType +
+                ", transactionDate='" + transactionDate + '\'' +
+                ", status=" + status +
+                ", payeeId=" + payeeId +
+                ", withdrawalType=" + withdrawalType +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

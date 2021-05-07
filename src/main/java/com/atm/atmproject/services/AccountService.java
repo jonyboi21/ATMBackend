@@ -25,24 +25,23 @@ public class AccountService {
     }
 
     public Iterable<Account> getAllAccountsFromCustomer(Long customerId){
-       return accountRepository.findAllAccountsByCustomer(customerId);
+
+    return accountRepository.findAllByCustomerId(customerId);
     }
     public void createAccount(Account account, Long customerId){
-        account.setCustomerId(customerId);
         accountRepository.save(account);
     }
-    public Account updateAccount(Long accountId, Account account){
 
+    public Account updateAccount(Long accountId, Account account){
         account.setId(accountId);
         accountRepository.save(account);
         return account;
     }
 
 
-
-
     public void deleteAccount(Long accountId) {
         accountRepository.deleteById(accountId);
     }
+
 
 }

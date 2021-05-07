@@ -7,36 +7,23 @@ public class Bill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "Bill_ID")
     private Long id;
 
-    @Column(name = "Status")
     private String status;
 
-    @Column(name = "Payee")
     private String payee;
 
-    @Column(name = "Nickname")
-    String nickname;
+    private String nickname;
 
-    @Column(name = "Creation_Date")
-    String creation_date;
+    private String creation_date;
 
-    @Column(name = "Payment_Date")
-    String payment_date;
+    private String payment_date;
 
-    @Column(name = "Upcoming_Payment_Date")
-    String upcoming_payment_date;
+    private String upcoming_payment_date;
 
-    @Column(name = "payment_amount")
-    Double payment_amount;
+    private Double payment_amount;
 
-    @OneToMany(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "Account_ID")
-    String account_id;
-
-//   Get SEt
-
+    private Long account_id;
 
     public Long getId() {
         return id;
@@ -102,11 +89,11 @@ public class Bill {
         this.payment_amount = payment_amount;
     }
 
-    public String getAccount_id() {
+    public Long getAccount_id() {
         return account_id;
     }
 
-    public void setAccount_id(String account_id) {
+    public void setAccount_id(Long account_id) {
         this.account_id = account_id;
     }
 
@@ -121,7 +108,7 @@ public class Bill {
                 ", payment_date='" + payment_date + '\'' +
                 ", upcoming_payment_date='" + upcoming_payment_date + '\'' +
                 ", payment_amount=" + payment_amount +
-                ", account_id='" + account_id + '\'' +
+                ", account_id=" + account_id +
                 '}';
     }
 }

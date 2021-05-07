@@ -7,32 +7,21 @@ public class Deposit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "DEPOSIT_ID") //unique Id
     private Long id;
 
-    @Column(name = "TYPE") //type of transaction
     private Enum transactionsType;
 
-    @Column(name = "TRANSACTION_DATE") //timestamp of transaction
     private String transactionDate;
 
-    @Column(name = "STATUS") //transaction status of deposit
     private Enum status;
 
-    @Column(name = "PAYEE_ID") //Id of account receiving deposit
     private Long payeeId;
 
-    @Column(name = "MEDIUM") //type of deposit
     private Enum depositType;
 
-    @Column(name = "AMOUNT")//deposit amount
     private Double amount;
 
-    @Column(name = "DESCRIPTION") //description of the deposit
     private String description;
-
-    public Deposit() {
-    }
 
     public Long getId() {
         return id;
