@@ -21,7 +21,7 @@ public class CustomerService {
 
     //get a customer by Id
     public void getCustomerById(Long customerId) {
-        Optional<Customer> c = customerRepository.findById(customerId);
+        customerRepository.findById(customerId);
     }
 
     //create a customer
@@ -34,4 +34,8 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
+    //delete a customer
+    public void deleteCustomer(Long customerId) {
+        customerRepository.deleteById(customerId);
+    }
 }

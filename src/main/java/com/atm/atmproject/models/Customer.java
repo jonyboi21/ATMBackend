@@ -6,8 +6,8 @@ import java.util.Set;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue
+    private Long Id;
 
     private String firstName;
 
@@ -16,12 +16,12 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Address> addressSet;
 
-    public Long getId() {
-        return id;
+    public Long getCustomerId() {
+        return Id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCustomerId(Long customerId) {
+        this.Id = customerId;
     }
 
     public String getFirstName() {
@@ -51,7 +51,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
+                "customerId=" + Id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", addressSet=" + addressSet +
