@@ -1,12 +1,14 @@
 package com.atm.atmproject.models;
 import com.atm.atmproject.enums.AccountType;
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private AccountType type;
@@ -17,8 +19,8 @@ public class Account {
 
     private Double balance;
 
+    @NotNull
     private Long customerId;
-
 
     public Long getId() {
         return id;

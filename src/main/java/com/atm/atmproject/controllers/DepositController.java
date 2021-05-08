@@ -35,15 +35,15 @@ public class DepositController {
     //get all deposits from specific account
     @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
     public ResponseEntity<?> getAllFromAccount (@PathVariable Long accountId) {
-        depositService.findAllByAccountId(accountId);
-        return new ResponseEntity<>(depositService.getDepositById(accountId), HttpStatus.OK);
+        Iterable<Deposit> a = depositService.getAllByAccountId(accountId);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     //get deposit by id
-    @RequestMapping(value = "/desposits/{depositId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deposits/{depositId}", method = RequestMethod.GET)
     public ResponseEntity<?> getDepositById (@PathVariable Long depositId) {
-        depositService.getDepositById(depositId);
-        return new ResponseEntity<>(depositService.getDepositById(depositId), HttpStatus.OK);
+        Optional<Deposit> a = depositService.getById(depositId);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     //create a deposit

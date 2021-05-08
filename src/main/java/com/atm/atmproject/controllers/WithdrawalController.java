@@ -19,9 +19,6 @@ import java.util.Optional;
 public class WithdrawalController {
 
     @Autowired
-    private WithdrawalRepository withdrawalRepository;
-
-    @Autowired
     private WithdrawalService withdrawalService;
 
 
@@ -39,17 +36,17 @@ public class WithdrawalController {
     }
 
     //get all withdrawals for a specific account
-    @RequestMapping(value = "/accounts/{accountId}/withdrawal",method = RequestMethod.GET)
+    @RequestMapping(value = "/accounts/{accountId}/withdrawals",method = RequestMethod.GET)
     public ResponseEntity<?> findAllByAccountId(@PathVariable Long accountId){
-        Iterable<Withdrawal> a = withdrawalService.findAllByAccountId(accountId);
+        Iterable<Withdrawal> a = withdrawalService.getAllByAccountId(accountId);
         return new ResponseEntity<>(a,HttpStatus.OK);
     }
 
     //get withdrawal by id
     @RequestMapping(value="/withdrawals/{withdrawalId}", method=RequestMethod.GET)
     public ResponseEntity<?> getWithdrawal(@PathVariable Long withdrawalId) {
-        withdrawalService.getWithdrawal(withdrawalId);
-        return new ResponseEntity<>(withdrawalRepository.findById(withdrawalId), HttpStatus.OK);
+        Optional<Withdrawal> a = withdrawalService.getWithdrawal(withdrawalId);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     //create a withdrawal
@@ -57,8 +54,6 @@ public class WithdrawalController {
     public ResponseEntity<?> createWithdrawal (@PathVariable Long accountId, @RequestBody Withdrawal withdrawal) {
         verifyAccount(accountId);
         withdrawalService.createWithdrawal(withdrawal);
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(withdrawal.getId()).toUri());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
