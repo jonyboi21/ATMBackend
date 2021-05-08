@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Withdrawal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Transactions type;

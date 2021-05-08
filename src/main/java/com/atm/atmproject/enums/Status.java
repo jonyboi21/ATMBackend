@@ -3,7 +3,8 @@ package com.atm.atmproject.enums;
 public enum Status {
     PENDING("pending"),
     CANCELLED("cancelled"),
-    COMPLETED("completed");
+    COMPLETED("completed"),
+    RECURRING("recurring");
 
     private final String status;
 

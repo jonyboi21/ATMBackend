@@ -1,8 +1,11 @@
 package com.atm.atmproject.services;
 
+import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Customer;
 import com.atm.atmproject.repositories.CustomerRepository;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,8 +22,13 @@ public class CustomerService {
     }
 
     //get a customer by Id
-    public Optional<Customer> getCustomerById(Long customerId) {
-        return customerRepository.findById(customerId);
+    public Optional<Customer> getCustomerById(Long customerId) throws ResourceNotFoundException {
+        if (!(customerRepository.existsById(customerId))) {
+            throw new ResourceNotFoundException();
+        }
+        else {
+            return customerRepository.findById(customerId);
+        }
     }
 
     //create a customer

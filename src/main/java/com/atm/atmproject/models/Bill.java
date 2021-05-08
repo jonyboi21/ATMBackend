@@ -1,5 +1,7 @@
 package com.atm.atmproject.models;
 
+import com.atm.atmproject.enums.Status;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,21 +11,25 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String status;
+    private Status status;
 
     private String payee;
 
     private String nickname;
 
-    private String creation_date;
+    private String creationDate;
 
-    private String payment_date;
+    private String paymentDate;
 
-    private String upcoming_payment_date;
+    private Integer recurringDate;
 
-    private Double payment_amount;
+    private String upcomingPaymentDate;
 
-    private Long account_id;
+    private Double paymentAmount;
+
+    private Long accountId;
+
+    private Long customerId;
 
     public Long getId() {
         return id;
@@ -33,11 +39,11 @@ public class Bill {
         this.id = id;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -57,58 +63,75 @@ public class Bill {
         this.nickname = nickname;
     }
 
-    public String getCreation_date() {
-        return creation_date;
+    public String getCreationDate() {
+        return creationDate;
     }
 
-    public void setCreation_date(String creation_date) {
-        this.creation_date = creation_date;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public String getPayment_date() {
-        return payment_date;
+    public String getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setPayment_date(String payment_date) {
-        this.payment_date = payment_date;
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public String getUpcoming_payment_date() {
-        return upcoming_payment_date;
+    public Integer getRecurringDate() {
+        return recurringDate;
     }
 
-    public void setUpcoming_payment_date(String upcoming_payment_date) {
-        this.upcoming_payment_date = upcoming_payment_date;
+    public void setRecurringDate(Integer recurringDate) {
+        this.recurringDate = recurringDate;
     }
 
-    public Double getPayment_amount() {
-        return payment_amount;
+    public String getUpcomingPaymentDate() {
+        return upcomingPaymentDate;
     }
 
-    public void setPayment_amount(Double payment_amount) {
-        this.payment_amount = payment_amount;
+    public void setUpcomingPaymentDate(String upcomingPaymentDate) {
+        this.upcomingPaymentDate = upcomingPaymentDate;
     }
 
-    public Long getAccount_id() {
-        return account_id;
+    public Double getPaymentAmount() {
+        return paymentAmount;
     }
 
-    public void setAccount_id(Long account_id) {
-        this.account_id = account_id;
+    public void setPaymentAmount(Double paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     @Override
     public String toString() {
         return "Bill{" +
                 "id=" + id +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 ", payee='" + payee + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", creation_date='" + creation_date + '\'' +
-                ", payment_date='" + payment_date + '\'' +
-                ", upcoming_payment_date='" + upcoming_payment_date + '\'' +
-                ", payment_amount=" + payment_amount +
-                ", account_id=" + account_id +
+                ", creationDate='" + creationDate + '\'' +
+                ", paymentDate='" + paymentDate + '\'' +
+                ", recurringDate=" + recurringDate +
+                ", upcomingPaymentDate='" + upcomingPaymentDate + '\'' +
+                ", paymentAmount=" + paymentAmount +
+                ", accountId=" + accountId +
                 '}';
     }
 }
