@@ -1,5 +1,7 @@
 package com.atm.atmproject.models;
 import com.atm.atmproject.enums.AccountType;
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,8 +19,8 @@ public class Account {
 
     private Double balance;
 
+    @NotNull
     private Long customerId;
-
 
     public Long getId() {
         return id;

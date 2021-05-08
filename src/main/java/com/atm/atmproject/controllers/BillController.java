@@ -67,7 +67,7 @@ public class BillController {
 
 // Create A Bill
     @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.POST)
-    public ResponseEntity<?> createVote (@RequestBody Bill bill) {
+    public ResponseEntity<?> createBill (@RequestBody Bill bill) {
     billService.createBill(bill);
     return new ResponseEntity<>(HttpStatus.CREATED);
 }
