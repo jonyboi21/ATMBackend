@@ -1,5 +1,6 @@
 package com.atm.atmproject.services;
 
+import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Account;
 import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.CustomerRepository;
@@ -45,5 +46,12 @@ public class AccountService {
         accountRepository.deleteById(accountId);
     }
 
+
+    protected void verifyAccount(Long pollId) throws ResourceNotFoundException {
+        Optional<Account> account = accountRepository.findById(pollId);
+        if(!account.isPresent()) {
+            throw new ResourceNotFoundException("Poll with id " + pollId + " not found");
+        }
+    }
 
 }
