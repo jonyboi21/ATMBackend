@@ -1,5 +1,6 @@
 package com.atm.atmproject.controllers;
 
+import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Account;
 import com.atm.atmproject.models.Bill;
 import com.atm.atmproject.models.Customer;
@@ -25,6 +26,9 @@ public class BillController {
     private BillService billService;
 
     @Autowired
+    private BillRepo billRepo;
+
+    @Autowired
     private CustomerService customerService;
 
     @Autowired
@@ -37,6 +41,7 @@ public class BillController {
     private AccountRepository accountRepository;
 
 
+
     //get all bills for specific account
     @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.GET)
     public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long accountId) {
@@ -47,8 +52,11 @@ public class BillController {
     //get bill by id
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.GET)
     public ResponseEntity<?> getBillById(@PathVariable Long billId) {
-        Optional<Bill> b = billService.getById(billId);
-        return new ResponseEntity<>(b, HttpStatus.OK);
+        Optional<Bill> bill = billRepo.findById(billId);
+        if(bill.isEmpty()) {
+            throw new ResourceNotFoundException("Poll with id " + billId + " not found");
+        }
+        return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
     //get all bills by customer
@@ -73,8 +81,9 @@ public class BillController {
 }
 
 // delete a bill
-    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteBill (@PathVariable Long billId) {
+    @RequestMapping(value="/bills/{billId}", method=RequestMethod.DELETE)
+    public ResponseEntity<?> deletePoll(@PathVariable Long billId) {
+        billService.deleteBill(billId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
