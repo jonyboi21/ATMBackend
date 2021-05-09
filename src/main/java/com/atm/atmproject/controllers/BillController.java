@@ -1,7 +1,8 @@
 package com.atm.atmproject.controllers;
-
+import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Bill;
 import com.atm.atmproject.repositories.AccountRepository;
+import com.atm.atmproject.repositories.BillRepo;
 import com.atm.atmproject.repositories.CustomerRepository;
 import com.atm.atmproject.services.AccountService;
 import com.atm.atmproject.services.BillService;
@@ -20,6 +21,9 @@ public class BillController {
     private BillService billService;
 
     @Autowired
+    private BillRepo billRepo;
+
+    @Autowired
     private CustomerService customerService;
 
     @Autowired
@@ -32,6 +36,7 @@ public class BillController {
     private AccountRepository accountRepository;
 
 
+
     //get all bills for specific account
     @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.GET)
     public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long accountId) {
@@ -42,8 +47,11 @@ public class BillController {
     //get bill by id
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.GET)
     public ResponseEntity<?> getBillById(@PathVariable Long billId) {
-        Optional<Bill> b = billService.getById(billId);
-        return new ResponseEntity<>(b, HttpStatus.OK);
+        Optional<Bill> bill = billRepo.findById(billId);
+        if(bill.isEmpty()) {
+            throw new ResourceNotFoundException("Error fetching bill with id of : " + billId);
+        }
+        return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
     //get all bills by customer
@@ -67,9 +75,10 @@ public class BillController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    // delete a bill
-    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteBill(@PathVariable Long billId) {
+// delete a bill
+    @RequestMapping(value="/bills/{billId}", method=RequestMethod.DELETE)
+    public ResponseEntity<?> deletePoll(@PathVariable Long billId) {
+        billService.deleteBill(billId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
