@@ -1,7 +1,6 @@
 package com.atm.atmproject.services;
 
 import com.atm.atmproject.models.Withdrawal;
-import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.WithdrawalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +12,10 @@ public class WithdrawalService {
 
     @Autowired
     private WithdrawalRepository withdrawalRepository;
-    @Autowired
-    AccountRepository accountRepository;
 
-//    public Iterable<Withdrawal> getAllWithdrawals(Long accountId) {
-//        return withdrawalRepository.findAll(accountId);
-//    public void getAllWithdrawals(Long accountId) {
-//        Iterable<Withdrawal> allWithdrawals = withdrawalRepository.findAll(accountId);
-//    }
+    public Iterable<Withdrawal> getAllByAccountId(Long accountId){
+        return withdrawalRepository.findAllByAccountId(accountId);
+    }
 
     public Optional<Withdrawal> getWithdrawal(Long withdrawalId) {
         return withdrawalRepository.findById(withdrawalId);

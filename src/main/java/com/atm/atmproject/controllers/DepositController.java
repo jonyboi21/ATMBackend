@@ -1,26 +1,19 @@
 package com.atm.atmproject.controllers;
-
 import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Account;
 import com.atm.atmproject.models.Deposit;
 import com.atm.atmproject.repositories.AccountRepository;
-import com.atm.atmproject.repositories.DepositRepository;
 import com.atm.atmproject.services.AccountService;
 import com.atm.atmproject.services.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Optional;
 
 @RestController
 public class DepositController {
-
-    @Autowired
-    private DepositRepository depositRepository;
 
     @Autowired
     private DepositService depositService;
@@ -40,28 +33,24 @@ public class DepositController {
     }
 
     //get all deposits from specific account
-//    //get all deposits from specific account
-//    @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
-//    public ResponseEntity<?> getAllDepositsFromAccount (@PathVariable Long accountId) {
-//        HttpHeaders responseHeaders = new HttpHeaders();
-//        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(deposit.getId()).toUri());
-//        return null;
-//    }
+    @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllFromAccount (@PathVariable Long accountId) {
+        Iterable<Deposit> a = depositService.getAllByAccountId(accountId);
+        return new ResponseEntity<>(a, HttpStatus.OK);
+    }
 
     //get deposit by id
-    @RequestMapping(value = "/desposits/{depositId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deposits/{depositId}", method = RequestMethod.GET)
     public ResponseEntity<?> getDepositById (@PathVariable Long depositId) {
-        depositService.getDepositById(depositId);
-        return new ResponseEntity<>(depositRepository.findById(depositId), HttpStatus.OK);
+        Optional<Deposit> a = depositService.getById(depositId);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     //create a deposit
     @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.POST)
     public ResponseEntity<?> createDeposit (@PathVariable Long accountId, @RequestBody Deposit deposit) {
-        //verify this account
+        verifyAccount(accountId);
         depositService.createDeposit(deposit);
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(deposit.getId()).toUri());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
