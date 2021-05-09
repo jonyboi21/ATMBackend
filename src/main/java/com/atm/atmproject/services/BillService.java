@@ -1,7 +1,6 @@
 package com.atm.atmproject.services;
 
 import com.atm.atmproject.models.Bill;
-import com.atm.atmproject.models.Customer;
 import com.atm.atmproject.repositories.BillRepo;
 import com.atm.atmproject.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class BillService {
     }
 
     // Create Bill
-    public void createBill (Bill bill) {
+    public void createBill(Bill bill) {
         billRepo.save(bill);
     }
 

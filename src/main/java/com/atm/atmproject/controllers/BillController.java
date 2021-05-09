@@ -1,20 +1,15 @@
 package com.atm.atmproject.controllers;
 
-import com.atm.atmproject.models.Account;
 import com.atm.atmproject.models.Bill;
-import com.atm.atmproject.models.Customer;
 import com.atm.atmproject.repositories.AccountRepository;
-import com.atm.atmproject.repositories.BillRepo;
 import com.atm.atmproject.repositories.CustomerRepository;
 import com.atm.atmproject.services.AccountService;
 import com.atm.atmproject.services.BillService;
 import com.atm.atmproject.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Optional;
 
@@ -59,25 +54,24 @@ public class BillController {
     }
 
     // Update a Bill
-    @RequestMapping(value="/bills/{billId}", method=RequestMethod.PUT)
+    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateBill(@RequestBody Bill bill, @PathVariable Long billId) {
-    billService.updateBill(bill,billId);
-     return new ResponseEntity<>(HttpStatus.OK);
-}
-
-// Create A Bill
-    @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.POST)
-    public ResponseEntity<?> createBill (@RequestBody Bill bill) {
-    billService.createBill(bill);
-    return new ResponseEntity<>(HttpStatus.CREATED);
-}
-
-// delete a bill
-    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteBill (@PathVariable Long billId) {
+        billService.updateBill(bill, billId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // Create A Bill
+    @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.POST)
+    public ResponseEntity<?> createBill(@RequestBody Bill bill) {
+        billService.createBill(bill);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    // delete a bill
+    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteBill(@PathVariable Long billId) {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }

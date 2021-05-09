@@ -16,24 +16,24 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Iterable<Account> getAllAccounts(){
+    public Iterable<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
 
-    public Optional<Account> getById(Long accountId){
+    public Optional<Account> getById(Long accountId) {
         return accountRepository.findById(accountId);
     }
 
-    public Iterable<Account> getAllAccountsFromCustomer(Long customerId){
+    public Iterable<Account> getAllAccountsFromCustomer(Long customerId) {
 
-    return accountRepository.findAllByCustomerId(customerId);
+        return accountRepository.findAllByCustomerId(customerId);
     }
 
-    public void createAccount(Account account, Long customerId){
+    public void createAccount(Account account, Long customerId) {
         accountRepository.save(account);
     }
 
-    public Account updateAccount(Long accountId, Account account){
+    public Account updateAccount(Long accountId, Account account) {
         account.setId(accountId);
         accountRepository.save(account);
         return account;
