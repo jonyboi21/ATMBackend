@@ -1,6 +1,8 @@
 package com.atm.atmproject.controllers;
 import com.atm.atmproject.exception.ResourceNotFoundException;
+import com.atm.atmproject.models.Account;
 import com.atm.atmproject.models.Bill;
+import com.atm.atmproject.models.Customer;
 import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.BillRepo;
 import com.atm.atmproject.repositories.CustomerRepository;
@@ -36,10 +38,65 @@ public class BillController {
     private AccountRepository accountRepository;
 
 
+//  verify Methods
+
+// VerifyAccount
+    public void verifyAccount(Long accountId) throws ResourceNotFoundException {
+        Bill bill = new Bill();
+        Optional<Account> account = accountService.getById(accountId);
+        if (account.isPresent()) { billService.createBill(bill);
+        } else {
+            throw new ResourceNotFoundException("error fetching bills");
+        }
+    }
+
+//    VerifyCreate
+    public void verifyCreate(Long accountId) throws ResourceNotFoundException {
+    Bill bill = new Bill();
+    Optional<Account> account = accountService.getById(accountId);
+    if (account.isPresent()) { billService.createBill(bill);
+    } else {
+        throw new ResourceNotFoundException("Error creating bill: Account not found");
+    }
+        }
+
+
+//    VerifyBill
+    public void verifyBill(Long billId) throws ResourceNotFoundException {
+        Bill bill = new Bill();
+        Optional<Bill> bill1 = billRepo.findById(billId);
+        if (bill1.isEmpty()) {
+            throw new ResourceNotFoundException("error fetching bills with id: " + billId);
+        }
+    }
+
+//    VerifyCustomer
+    public void verifyCustomer(Long customerId) throws ResourceNotFoundException {
+        Bill bill = new Bill();
+        Optional<Customer> customer = customerService.getCustomerById(customerId);
+        if (customer.isPresent()) { customerService.getCustomerById(customerId);
+        } else {
+            throw new ResourceNotFoundException("error fetching bills");
+        }
+    }
+
+//    Verify BillId Put
+    public void verifyUpdate(Long billId) throws ResourceNotFoundException {
+    Bill bill = new Bill();
+    Optional<Bill> bill1 = billRepo.findById(billId);
+    if (bill1.isEmpty()) {
+        throw new ResourceNotFoundException("Bill ID: " + billId + " does not exist");
+    }
+        }
+
+
+
+
 
     //get all bills for specific account
     @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.GET)
     public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long accountId) {
+        verifyAccount(accountId);
         Iterable<Bill> a = billService.getAllByAccountId(accountId);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
@@ -47,16 +104,14 @@ public class BillController {
     //get bill by id
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.GET)
     public ResponseEntity<?> getBillById(@PathVariable Long billId) {
-        Optional<Bill> bill = billRepo.findById(billId);
-        if(bill.isEmpty()) {
-            throw new ResourceNotFoundException("Error fetching bill with id of : " + billId);
-        }
-        return new ResponseEntity<>(bill, HttpStatus.OK);
+        verifyBill(billId);
+        return new ResponseEntity<>(billRepo.findById(billId), HttpStatus.OK);
     }
 
     //get all bills by customer
     @RequestMapping(value = "/customers/{customerId}/bills", method = RequestMethod.GET)
     public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long customerId) {
+        verifyCustomer(customerId);
         Iterable<Bill> c = billService.getAllByCustomerId(customerId);
         return new ResponseEntity<>(c, HttpStatus.OK);
     }
@@ -64,13 +119,15 @@ public class BillController {
     // Update a Bill
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateBill(@RequestBody Bill bill, @PathVariable Long billId) {
+        verifyUpdate(billId);
         billService.updateBill(bill, billId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // Create A Bill
     @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.POST)
-    public ResponseEntity<?> createBill(@RequestBody Bill bill) {
+    public ResponseEntity<?> createBill(@PathVariable Long accountId, @RequestBody Bill bill) {
+        verifyCreate(accountId);
         billService.createBill(bill);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -78,9 +135,13 @@ public class BillController {
 // delete a bill
     @RequestMapping(value="/bills/{billId}", method=RequestMethod.DELETE)
     public ResponseEntity<?> deletePoll(@PathVariable Long billId) {
+        Optional<Bill> bill = billService.getById(billId);
+        if (bill.isEmpty()) {
+            throw new ResourceNotFoundException("This id: " + billId + " does not exist in bills");
+        }
         billService.deleteBill(billId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+//“This id does not exist in bills”
 
 }
