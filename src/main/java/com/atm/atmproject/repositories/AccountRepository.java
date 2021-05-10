@@ -1,16 +1,13 @@
 package com.atm.atmproject.repositories;
+
 import com.atm.atmproject.models.Account;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
-
-Iterable<Account> findAllByCustomerId(Long customerId);
-
+    Iterable<Account> findAllByCustomerId(Long customerId);
 
 
 }

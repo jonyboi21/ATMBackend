@@ -13,7 +13,7 @@ public class WithdrawalService {
     @Autowired
     private WithdrawalRepository withdrawalRepository;
 
-    public Iterable<Withdrawal> getAllByAccountId(Long accountId){
+    public Iterable<Withdrawal> getAllByAccountId(Long accountId) {
         return withdrawalRepository.findAllByAccountId(accountId);
     }
 
