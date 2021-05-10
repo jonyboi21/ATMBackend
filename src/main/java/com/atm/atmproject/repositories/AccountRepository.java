@@ -11,6 +11,6 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
 Iterable<Account> findAllByCustomerId(Long customerId);
 
-
+Integer countAllByCustomerId(Long customerId);
 
 }

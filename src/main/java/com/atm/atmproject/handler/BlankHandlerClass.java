@@ -28,7 +28,7 @@ public class BlankHandlerClass extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> handleErrorFetchingMultipleAccountsResource(ResourceNotFoundException rnfe, HttpServletRequest request) {
         ValidationError validationError = new ValidationError();
         validationError.setCode("404");
-        validationError.setMessage("error fetching accounts");
+        validationError.setMessage("error fetching customer accounts");
         return new ResponseEntity<>(validationError, null, HttpStatus.NOT_FOUND);
     }
 
@@ -41,7 +41,5 @@ public class BlankHandlerClass extends ResponseEntityExceptionHandler {
         validationError.setMessage("error fetching account");
         return new ResponseEntity<>(validationError, null, HttpStatus.NOT_FOUND);
     }
-
-
 
 }

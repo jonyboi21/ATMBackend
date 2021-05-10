@@ -23,8 +23,7 @@ public class DepositService {
     }
 
     //create a deposit
-    public void createDeposit(Deposit deposit,Long accountId) {
-        deposit.setAccountId(accountId);
+    public void createDeposit(Deposit deposit) {
         depositRepository.save(deposit);
     }
 

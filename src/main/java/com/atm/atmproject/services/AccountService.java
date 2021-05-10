@@ -22,36 +22,42 @@ public class AccountService {
     }
 
     public Optional<Account> getById(Long accountId){
-        return accountRepository.findById(accountId);
+        if (!(accountRepository.existsById(accountId))) {
+            throw new ResourceNotFoundException();
+        }
+        else {
+            return accountRepository.findById(accountId);
+        }
     }
 
-    public Iterable<Account> getAllAccountsFromCustomer(Long customerId){
-
-    return accountRepository.findAllByCustomerId(customerId);
+    public Iterable<Account> getAllAccountsFromCustomer(Long customerId) {
+        if (accountRepository.countAllByCustomerId(customerId) == 0) {
+            throw new ResourceNotFoundException();
+        }
+           return accountRepository.findAllByCustomerId(customerId);
     }
 
-    public void createAccount(Account account, Long customerId){
-        account.setCustomerId(customerId);
-        accountRepository.save(account);
+    public void createAccount(Account account, Long customerId) {
+            account.setCustomerId(customerId);
+            accountRepository.save(account);
     }
 
-    public Account updateAccount(Long accountId, Account account){
-        account.setId(accountId);
-        accountRepository.save(account);
-        return account;
+    public Account updateAccount(Long accountId, Account account) {
+        if (!(accountRepository.existsById(account.getId()))) {
+            throw new ResourceNotFoundException();
+        } else {
+            account.setId(accountId);
+            accountRepository.save(account);
+            return account;
+        }
     }
-
 
     public void deleteAccount(Long accountId) {
         accountRepository.deleteById(accountId);
     }
 
 
-    protected void verifyAccount(Long pollId) throws ResourceNotFoundException {
-        Optional<Account> account = accountRepository.findById(pollId);
-        if(!account.isPresent()) {
-            throw new ResourceNotFoundException("Poll with id " + pollId + " not found");
-        }
+
     }
 
-}
+
