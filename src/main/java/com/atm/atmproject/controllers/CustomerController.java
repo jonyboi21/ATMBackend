@@ -39,8 +39,7 @@ public class CustomerController {
     public ResponseEntity<?> getCustomerById(@PathVariable Long customerId) {
         customerService.verifyCustomer(customerId);
         Optional<Customer> getCustomerById = customerService.getCustomerById(customerId);
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Fantastic job", customerService.getCustomerById(customerId));
-        return new ResponseEntity<>(successfulResponse, HttpStatus.OK);
+        return new ResponseEntity<>(getCustomerById, HttpStatus.OK);
     }
 
     //create a customer

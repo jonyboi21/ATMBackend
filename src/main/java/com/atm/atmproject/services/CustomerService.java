@@ -2,9 +2,10 @@ package com.atm.atmproject.services;
 
 import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Customer;
+import com.atm.atmproject.models.SuccessfulResponse;
+import com.atm.atmproject.models.SuccessfulResponseWrapper;
 import com.atm.atmproject.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,6 +15,7 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
 
     //get all customers
     public Iterable<Customer> getAllCustomers() {

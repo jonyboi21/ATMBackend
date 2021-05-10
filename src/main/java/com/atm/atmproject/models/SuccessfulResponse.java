@@ -1,30 +1,32 @@
 package com.atm.atmproject.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.domain.Sort;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.xml.crypto.Data;
-import java.util.List;
 import java.util.Optional;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SuccessfulResponse {
     private int code;
     private String message;
     private Iterable<?> data;
-    private String stuff;
+    private Optional<?> Data;
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
+
     public SuccessfulResponse(int code, String message, Iterable<?> data) {
         this.code = code;
         this.message = message;
         this.data = data;
-
     }
 
-    public SuccessfulResponse() {
+    public SuccessfulResponse(int code, String message, Optional<?> Data) {
+        this.code = code;
+        this.message = message;
+        this.Data = Data;
     }
 
-    public SuccessfulResponse(int code, String fantastic_job, Optional<Customer> customerById) {
+    public SuccessfulResponse(int code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
     public int getCode() {
@@ -51,11 +53,7 @@ public class SuccessfulResponse {
         this.data = data;
     }
 
-    public String getStuff() {
-        return stuff;
-    }
-
-    public void setStuff(String stuff) {
-        this.stuff = stuff;
+    public void setData(Optional<?> data) {
+        Data = data;
     }
 }
