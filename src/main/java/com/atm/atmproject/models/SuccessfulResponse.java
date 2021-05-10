@@ -9,7 +9,7 @@ public class SuccessfulResponse {
     private int code;
     private String message;
     private Iterable<?> data;
-    private Optional<?> Data;
+    private Optional<?> data_;
 
 
     public SuccessfulResponse(int code, String message, Iterable<?> data) {
@@ -18,10 +18,10 @@ public class SuccessfulResponse {
         this.data = data;
     }
 
-    public SuccessfulResponse(int code, String message, Optional<?> Data) {
+    public SuccessfulResponse(int code, String message, Optional<?> data) {
         this.code = code;
         this.message = message;
-        this.Data = Data;
+        this.data_ = data;
     }
 
     public SuccessfulResponse(int code, String message) {
@@ -53,7 +53,11 @@ public class SuccessfulResponse {
         this.data = data;
     }
 
-    public void setData(Optional<?> data) {
-        Data = data;
+    public Optional<?> getData_() {
+        return data_;
+    }
+
+    public void setData_(Optional<?> data_) {
+        this.data_ = data_;
     }
 }
