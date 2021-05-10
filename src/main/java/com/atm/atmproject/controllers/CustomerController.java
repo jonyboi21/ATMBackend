@@ -22,14 +22,10 @@ public class CustomerController {
     //get all customers
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Customer>> getAllCustomers() {
-<<<<<<< HEAD
         Iterable<Customer> c = customerService.getAllCustomers();
-        return new ResponseEntity<>(c, HttpStatus.OK);
-=======
         customerService.verifyCustomersInRepository();
         Iterable<Customer> getAllCustomers = customerService.getAllCustomers();
         return new ResponseEntity<>(getAllCustomers, HttpStatus.OK);
->>>>>>> f4a6883f34d229f17c13981aa4215a8b84a25732
     }
 
     //get customer by Id
