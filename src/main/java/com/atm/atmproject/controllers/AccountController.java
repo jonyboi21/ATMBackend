@@ -19,38 +19,39 @@ public class AccountController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @RequestMapping(value = "/accounts",method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Account>> getAllAccounts(){
-    Iterable<Account> a = accountService.getAllAccounts();
-    return new ResponseEntity<>(a, HttpStatus.OK);
+    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<Account>> getAllAccounts() {
+        Iterable<Account> a = accountService.getAllAccounts();
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accounts/{accountId}",method = RequestMethod.GET)
-    public ResponseEntity<?> getAccountById(@PathVariable Long accountId){
+    @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getAccountById(@PathVariable Long accountId) {
         Optional<Account> a = accountService.getById(accountId);
-        return new ResponseEntity<> (a,HttpStatus.OK);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/customers/{customerId}/accounts",method = RequestMethod.GET)
-    public ResponseEntity<?> getAllAccountsFromCustomer(@PathVariable Long customerId){
+    @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllAccountsFromCustomer(@PathVariable Long customerId) {
         Iterable<Account> a = accountService.getAllAccountsFromCustomer(customerId);
-        return new ResponseEntity<>(a,HttpStatus.OK);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/customers/{customerId}/accounts",method = RequestMethod.POST)
-    public ResponseEntity<?> createAnAccount(@RequestBody Account account, @PathVariable Long customerId ){
-        accountService.createAccount(account,customerId);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.POST)
+    public ResponseEntity<?> createAnAccount(@RequestBody Account account, @PathVariable Long customerId) {
+        accountService.createAccount(account, customerId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateAnAccount(@RequestBody Account account,@PathVariable Long accountId){
-       Account a = accountService.updateAccount(accountId,account);
-        return new ResponseEntity<>(a,HttpStatus.OK);
+    public ResponseEntity<?> updateAnAccount(@RequestBody Account account, @PathVariable Long accountId) {
+        Account a = accountService.updateAccount(accountId, account);
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteSpecificAccount(@PathVariable Long accountId){
+    public ResponseEntity<?> deleteSpecificAccount(@PathVariable Long accountId) {
         accountService.deleteAccount(accountId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -1,7 +1,8 @@
 package com.atm.atmproject.services;
 
+import com.atm.atmproject.controllers.BillController;
+import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Bill;
-import com.atm.atmproject.models.Customer;
 import com.atm.atmproject.repositories.BillRepo;
 import com.atm.atmproject.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +22,35 @@ public class BillService {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private BillController billController;
+
+
 
     //get all bills for specific account
     public Iterable<Bill> getAllByAccountId(Long accountId) {
-        return billRepo.getAllBillsByAccountId(accountId);
+
+            return billRepo.getAllBillsByAccountId(accountId);
+
+
     }
 
     //get all bills by customer
     public Iterable<Bill> getAllByCustomerId(Long customerId) {
-        return billRepo.getAllBillsByCustomerId(customerId);
+
+            return billRepo.getAllBillsByCustomerId(customerId);
+
     }
+
 
     //get bill by Id
     public Optional<Bill> getById(Long billId) {
-        return billRepo.findById(billId);
+
+                return billRepo.findById(billId);
     }
 
     // Create Bill
-    public void createBill (Bill bill) {
+    public void createBill(Bill bill) {
         billRepo.save(bill);
     }
 

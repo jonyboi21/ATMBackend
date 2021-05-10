@@ -17,7 +17,7 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Iterable<Account> getAllAccounts(){
+    public Iterable<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
 
@@ -53,6 +53,9 @@ public class AccountService {
     }
 
     public void deleteAccount(Long accountId) {
+        if(!(accountRepository.existsById(accountId))){
+            throw new ResourceNotFoundException();
+        }else
         accountRepository.deleteById(accountId);
     }
 

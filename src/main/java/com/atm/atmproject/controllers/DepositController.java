@@ -1,4 +1,5 @@
 package com.atm.atmproject.controllers;
+
 import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Account;
 import com.atm.atmproject.models.Deposit;
@@ -28,27 +29,27 @@ public class DepositController {
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
         Optional<Account> account = accountService.getById(accountId);
         if (!(accountRepository.existsById(accountId))) {
-            throw new ResourceNotFoundException("Account with id " + accountId + " not found");
+            throw new ResourceNotFoundException();
         }
     }
 
     //get all deposits from specific account
     @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllFromAccount (@PathVariable Long accountId) {
+    public ResponseEntity<?> getAllFromAccount(@PathVariable Long accountId) {
         Iterable<Deposit> a = depositService.getAllByAccountId(accountId);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     //get deposit by id
     @RequestMapping(value = "/deposits/{depositId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getDepositById (@PathVariable Long depositId) {
+    public ResponseEntity<?> getDepositById(@PathVariable Long depositId) {
         Optional<Deposit> a = depositService.getById(depositId);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     //create a deposit
     @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.POST)
-    public ResponseEntity<?> createDeposit (@PathVariable Long accountId, @RequestBody Deposit deposit) {
+    public ResponseEntity<?> createDeposit(@PathVariable Long accountId, @RequestBody Deposit deposit) {
         verifyAccount(accountId);
         depositService.createDeposit(deposit);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -63,7 +64,7 @@ public class DepositController {
 
     //delete a specific deposit
     @RequestMapping(value = "/deposits/{depositId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteDeposit (@PathVariable Long depositId) {
+    public ResponseEntity<?> deleteDeposit(@PathVariable Long depositId) {
         depositService.deleteDeposit(depositId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

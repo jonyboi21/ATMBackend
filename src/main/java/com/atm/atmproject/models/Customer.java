@@ -1,6 +1,9 @@
 package com.atm.atmproject.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Entity
@@ -10,8 +13,10 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
     private String firstName;
 
+    @NotEmpty
     private String lastName;
 
     @OneToMany(cascade = CascadeType.ALL)

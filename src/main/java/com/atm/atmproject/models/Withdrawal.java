@@ -4,7 +4,10 @@ import com.atm.atmproject.enums.Medium;
 import com.atm.atmproject.enums.Status;
 import com.atm.atmproject.enums.Transactions;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Withdrawal {
