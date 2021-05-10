@@ -82,8 +82,8 @@ public class WithdrawalController {
     public ResponseEntity<?> getWithdrawal(@PathVariable Long withdrawalId) {
         verifyWithdrawal(withdrawalId);
         Optional<Withdrawal> a = withdrawalService.getWithdrawal(withdrawalId);
-        //SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>(successfulResponse, HttpStatus.OK);
     }
 
     //create a withdrawal
@@ -91,6 +91,7 @@ public class WithdrawalController {
     public ResponseEntity<?> createWithdrawal(@PathVariable Long accountId, @RequestBody Withdrawal withdrawal) {
         verifyCreate(accountId);
         withdrawalService.createWithdrawal(withdrawal);
+        //SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Created withdrawal and deducted it from the account", withdrawalService.createWithdrawal(withdrawal));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
