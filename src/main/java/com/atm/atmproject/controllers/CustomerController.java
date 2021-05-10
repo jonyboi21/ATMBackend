@@ -3,6 +3,8 @@ package com.atm.atmproject.controllers;
 import com.atm.atmproject.error.ValidationError;
 import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Customer;
+import com.atm.atmproject.models.SuccessfulResponse;
+import com.atm.atmproject.models.SuccessfulResponseWrapper;
 import com.atm.atmproject.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,16 +17,21 @@ import java.util.Optional;
 @RestController
 public class CustomerController {
 
+    private SuccessfulResponse successfulResponse;
+
+    private SuccessfulResponseWrapper successfulResponseWrapper;
+
     @Autowired
     private CustomerService customerService;
 
 
     //get all customers
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Customer>> getAllCustomers() {
+    public ResponseEntity<?> getAllCustomers() {
         customerService.verifyCustomersInRepository();
         Iterable<Customer> getAllCustomers = customerService.getAllCustomers();
-        return new ResponseEntity<>(getAllCustomers, HttpStatus.OK);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
+        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
     }
 
     //get customer by Id
@@ -32,7 +39,8 @@ public class CustomerController {
     public ResponseEntity<?> getCustomerById(@PathVariable Long customerId) {
         customerService.verifyCustomer(customerId);
         Optional<Customer> getCustomerById = customerService.getCustomerById(customerId);
-        return new ResponseEntity<>(getCustomerById, HttpStatus.OK);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Fantastic job", customerService.getCustomerById(customerId));
+        return new ResponseEntity<>(successfulResponse, HttpStatus.OK);
     }
 
     //create a customer
