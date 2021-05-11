@@ -37,14 +37,16 @@ public class CustomerController {
     public ResponseEntity<?> getCustomerById(@PathVariable Long customerId) {
         customerService.verifyCustomer(customerId);
         Optional<Customer> getCustomerById = customerService.getCustomerById(customerId);
-        return new ResponseEntity<>(getCustomerById, HttpStatus.OK);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", getCustomerById);
+        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
     }
 
     //create a customer
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
-    public ResponseEntity<?> createCustomer(@Validated @RequestBody Customer customer) {
+    public ResponseEntity<?> createCustomer(@Validated @RequestBody Customer customer, @PathVariable Long customerId) {
         customerService.createCustomer(customer);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Customer account updated", customerService.getCustomerById(customerId));
+        return new ResponseEntity<Object>(successfulResponse, HttpStatus.CREATED);
     }
 
     //update a customer
