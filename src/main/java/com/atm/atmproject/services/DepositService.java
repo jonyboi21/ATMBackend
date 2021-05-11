@@ -22,25 +22,21 @@ public class DepositService {
         return depositRepository.findAllByAccountId(accountId);
     }
 
-    //get a deposit by Id
     public Optional<Deposit> getById(Long depositId) {
         logger.info("SUCCESSFULLY RETRIEVED DEPOSIT WITH ID: " + depositId);
         return depositRepository.findById(depositId);
     }
 
-    //create a deposit
     public void createDeposit(Deposit deposit) {
         logger.info("DEPOSIT SUCCESSFULLY CREATED");
         depositRepository.save(deposit);
     }
 
-    //update a deposit
     public void updateDeposit(Deposit deposit, Long depositId) {
         logger.info("DEPOSIT WITH ID: " + depositId + " SUCCESSFULLY UPDATED");
         depositRepository.save(deposit);
     }
 
-    //delete a deposit
     public void deleteDeposit(Long depositId) {
         logger.info("DEPOSIT WITH ID: " + depositId + " REMOVED FROM SYSTEM");
         depositRepository.deleteById(depositId);

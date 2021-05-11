@@ -1,6 +1,7 @@
-package com.atm.atmproject.models;
+package com.atm.atmproject.successfulresponse;
 
 public class SuccessfulResponseWrapper {
+
     private SuccessfulResponseIterable successfulResponseIterable;
 
     public SuccessfulResponseWrapper(SuccessfulResponseIterable successfulResponseIterable) {

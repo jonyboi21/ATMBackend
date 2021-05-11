@@ -14,6 +14,4 @@ public enum Transactions {
     public String getType() {
         return type;
     }
-
-
 }

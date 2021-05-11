@@ -6,6 +6,9 @@ import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.DepositRepository;
 import com.atm.atmproject.services.AccountService;
 import com.atm.atmproject.services.DepositService;
+import com.atm.atmproject.successfulresponse.SuccessfulResponseIterable;
+import com.atm.atmproject.successfulresponse.SuccessfulResponseObject;
+import com.atm.atmproject.successfulresponse.SuccessfulResponseOptional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +34,8 @@ public class DepositController {
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
         Deposit deposit = new Deposit();
         Optional<Account> account = accountService.getById(accountId);
-        if (!account.isPresent()) { throw new ResourceNotFoundException("Account not found");
+        if (!account.isPresent()) {
+            throw new ResourceNotFoundException("Account not found");
         }
     }
 
@@ -43,11 +47,11 @@ public class DepositController {
         }
     }
 
-    //    VerifyCreate
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
         Deposit deposit = new Deposit();
         Optional<Account> account = accountService.getById(accountId);
-        if (!account.isPresent()) { throw new ResourceNotFoundException("Error creating deposit: Account not found");
+        if (!account.isPresent()) {
+            throw new ResourceNotFoundException("Error creating deposit: Account not found");
         }
     }
 
@@ -67,7 +71,6 @@ public class DepositController {
         }
     }
 
-    //get all deposits from specific account
     @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.GET)
     public ResponseEntity<?> getAllFromAccount(@PathVariable Long accountId) {
         verifyAccount(accountId);
@@ -76,7 +79,6 @@ public class DepositController {
         return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
-    //get deposit by id
     @RequestMapping(value = "/deposits/{depositId}", method = RequestMethod.GET)
     public ResponseEntity<?> getDepositById(@PathVariable Long depositId) {
         verifyDeposit(depositId);
@@ -85,7 +87,6 @@ public class DepositController {
         return new ResponseEntity<>(successfulResponseOptional, HttpStatus.OK);
     }
 
-    //create a deposit
     @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.POST)
     public ResponseEntity<?> createDeposit(@PathVariable Long accountId, @RequestBody Deposit deposit) {
         verifyCreate(accountId);
@@ -94,7 +95,6 @@ public class DepositController {
         return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);
     }
 
-    //update an existing deposit
     @RequestMapping(value = "/deposits/{depositId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateDeposit(@RequestBody Deposit deposit, @PathVariable Long depositId) {
         verifyUpdate(depositId);
@@ -103,7 +103,6 @@ public class DepositController {
         return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
-    //delete a specific deposit
     @RequestMapping(value = "/deposits/{depositId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteDeposit(@PathVariable Long depositId) {
         verifyDelete(depositId);

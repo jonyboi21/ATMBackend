@@ -18,8 +18,6 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-
-    //get all customers
     public Iterable<Customer> getAllCustomers() {
         if (!(customerRepository.findAll().iterator().hasNext())) {
             throw new ResourceNotFoundException("Error fetching accounts");
@@ -29,32 +27,27 @@ public class CustomerService {
         }
     }
 
-    //get a customer by Id
     public Optional<Customer> getCustomerById(Long customerId) {
         logger.info("SUCCESSFULLY RETRIEVED CUSTOMER WITH ID OF " + customerId);
         return customerRepository.findById(customerId);
     }
 
-    //create a customer
     public void createCustomer(Customer customer) {
         logger.info("CUSTOMER SUCCESSFULLY CREATED");
         customerRepository.save(customer);
     }
 
-    //update a customer
     public void updateCustomer(Customer customer, Long customerId) {
         logger.info("CUSTOMER ACCOUNT FOR CUSTOMER " + customer.getCustomerId() + " SUCCESSFULLY UPDATED");
         customerRepository.save(customer);
     }
 
-    //delete a customer
     public void deleteCustomer(Long customerId) {
         logger.info("CUSTOMER " + customerId + " REMOVED FROM SYSTEM");
         customerRepository.deleteById(customerId);
     }
 
-
-    public void verifyCustomer(Long customerId) throws ResourceNotFoundException{
+    public void verifyCustomer(Long customerId) throws ResourceNotFoundException {
         if (!(customerRepository.existsById(customerId))) {
             throw new ResourceNotFoundException("Error fetching account");
         }

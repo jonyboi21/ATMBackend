@@ -1,19 +1,20 @@
-package com.atm.atmproject.models;
+package com.atm.atmproject.successfulresponse;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Optional;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SuccessfulResponseObject {
+public class SuccessfulResponseOptional {
+
     private int code;
     private String message;
-    private Object data;
+    private Optional<?> data;
 
-
-    public SuccessfulResponseObject(int code, String message, Object data) {
+    public SuccessfulResponseOptional(int code, String message, Optional<?> date) {
         this.code = code;
         this.message = message;
-        this.data = data;
+        this.data = date;
     }
 
     public int getCode() {
@@ -32,11 +33,11 @@ public class SuccessfulResponseObject {
         this.message = message;
     }
 
-    public Object getData() {
+    public Optional<?> getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(Optional<?> data) {
         this.data = data;
     }
 }
