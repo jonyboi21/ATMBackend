@@ -8,21 +8,29 @@ import java.util.Optional;
 public class SuccessfulResponse {
     private int code;
     private String message;
-    private Iterable<?> data;
-    private Optional<?> data_;
+    private Object data;
+
+//    private Iterable<?> data;
+//    private Optional<?> data_;
 
 
-    public SuccessfulResponse(int code, String message, Iterable<?> data) {
+    public SuccessfulResponse(int code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public SuccessfulResponse(int code, String message, Optional<?> data) {
-        this.code = code;
-        this.message = message;
-        this.data_ = data;
-    }
+//    public SuccessfulResponse(int code, String message, Iterable<?> data) {
+//        this.code = code;
+//        this.message = message;
+//        this.data = data;
+//    }
+//
+//    public SuccessfulResponse(int code, String message, Optional<?> data) {
+//        this.code = code;
+//        this.message = message;
+//        this.data_ = data;
+//    }
 
     public SuccessfulResponse(int code, String message) {
         this.code = code;
@@ -45,19 +53,27 @@ public class SuccessfulResponse {
         this.message = message;
     }
 
-    public Iterable<?> getData() {
+//    public Iterable<?> getData() {
+//        return data;
+//    }
+//
+//    public void setData(Iterable<?> data) {
+//        this.data = data;
+//    }
+//
+//    public Optional<?> getData_() {
+//        return data_;
+//    }
+//
+//    public void setData_(Optional<?> data_) {
+//        this.data_ = data_;
+//    }
+
+    public Object getData() {
         return data;
     }
 
-    public void setData(Iterable<?> data) {
+    public void setData(Object data) {
         this.data = data;
-    }
-
-    public Optional<?> getData_() {
-        return data_;
-    }
-
-    public void setData_(Optional<?> data_) {
-        this.data_ = data_;
     }
 }
