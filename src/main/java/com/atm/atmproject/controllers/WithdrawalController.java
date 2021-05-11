@@ -73,8 +73,8 @@ public class WithdrawalController {
     public ResponseEntity<?> findAllByAccountId(@PathVariable Long accountId) {
         verifyAccount(accountId);
         Iterable<Withdrawal> a = withdrawalService.getAllByAccountId(accountId);
-        //SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
-        return new ResponseEntity<>(HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     //get withdrawal by id
@@ -82,8 +82,8 @@ public class WithdrawalController {
     public ResponseEntity<?> getWithdrawal(@PathVariable Long withdrawalId) {
         verifyWithdrawal(withdrawalId);
         Optional<Withdrawal> a = withdrawalService.getWithdrawal(withdrawalId);
-      //  SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
-        return new ResponseEntity<>( HttpStatus.OK);
+        SuccessfulResponseOptional successfulResponseOptional = new SuccessfulResponseOptional(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>(successfulResponseOptional, HttpStatus.OK);
     }
 
     //create a withdrawal
@@ -91,8 +91,8 @@ public class WithdrawalController {
     public ResponseEntity<?> createWithdrawal(@PathVariable Long accountId, @RequestBody Withdrawal withdrawal) {
         verifyCreate(accountId);
         withdrawalService.createWithdrawal(withdrawal);
-        //SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Created withdrawal and deducted it from the account", withdrawalService.createWithdrawal(withdrawal));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Created withdrawal and deducted it from the account", withdrawal);
+        return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);
     }
 
     //update an existing withdrawal
@@ -100,7 +100,8 @@ public class WithdrawalController {
     public ResponseEntity<?> updateWithdrawal(@RequestBody Withdrawal withdrawal, @PathVariable Long withdrawalId) {
         verifyUpdate(withdrawalId);
         withdrawalService.updateWithdrawal(withdrawal, withdrawalId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(202, "Accepted withdrawal modification");
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     //delete a specific withdrawal
@@ -108,6 +109,7 @@ public class WithdrawalController {
     public ResponseEntity<?> deleteWithdrawal(@PathVariable Long withdrawalId) {
         verifyDelete(withdrawalId);
         withdrawalService.deleteWithdrawal(withdrawalId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(204, null);
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 }

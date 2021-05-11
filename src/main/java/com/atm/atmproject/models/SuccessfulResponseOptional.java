@@ -11,7 +11,7 @@ public class SuccessfulResponseOptional {
     private String message;
     private Optional<?> data;
 
-    public SuccessfulResponseOptional(int code, String message, Optional date) {
+    public SuccessfulResponseOptional(int code, String message, Optional<?> date) {
         this.code = code;
         this.message = message;
         this.data = date;
