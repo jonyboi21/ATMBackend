@@ -1,8 +1,6 @@
-package com.atm.atmproject.models;
+package com.atm.atmproject.successfulresponse;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SuccessfulResponseIterable {
@@ -11,14 +9,11 @@ public class SuccessfulResponseIterable {
     private String message;
     private Iterable<?> data;
 
-
-
     public SuccessfulResponseIterable(int code, String message, Iterable<?> data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
-
 
     public SuccessfulResponseIterable(int code, String message) {
         this.code = code;
@@ -48,6 +43,4 @@ public class SuccessfulResponseIterable {
     public void setData(Iterable<?> data) {
         this.data = data;
     }
-
-
 }

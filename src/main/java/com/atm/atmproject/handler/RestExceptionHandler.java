@@ -28,7 +28,4 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         validationError.setMessage("Error");
         return handleExceptionInternal(manve, validationError, headers, status, request);
     }
-
-
-
 }

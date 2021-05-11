@@ -1,4 +1,4 @@
-package com.atm.atmproject.models;
+package com.atm.atmproject.successfulresponse;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

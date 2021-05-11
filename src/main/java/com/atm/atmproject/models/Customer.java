@@ -1,12 +1,13 @@
 package com.atm.atmproject.models;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer {
 
     @Id

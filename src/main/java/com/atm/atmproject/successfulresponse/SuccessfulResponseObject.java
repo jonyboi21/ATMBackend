@@ -1,12 +1,12 @@
-package com.atm.atmproject.models;
+package com.atm.atmproject.successfulresponse;
 
-import java.util.Optional;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SuccessfulResponseObject {
     private int code;
     private String message;
     private Object data;
-
 
     public SuccessfulResponseObject(int code, String message, Object data) {
         this.code = code;

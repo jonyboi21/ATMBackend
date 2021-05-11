@@ -6,6 +6,9 @@ import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.WithdrawalRepository;
 import com.atm.atmproject.services.AccountService;
 import com.atm.atmproject.services.WithdrawalService;
+import com.atm.atmproject.successfulresponse.SuccessfulResponseIterable;
+import com.atm.atmproject.successfulresponse.SuccessfulResponseObject;
+import com.atm.atmproject.successfulresponse.SuccessfulResponseOptional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +31,7 @@ public class WithdrawalController {
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
         Withdrawal withdrawal = new Withdrawal();
         Optional<Account> account = accountService.getById(accountId);
-        if (account.isPresent()) { withdrawalService.createWithdrawal(withdrawal);
-        } else {
+        if (!account.isPresent()) {
             throw new ResourceNotFoundException("Account not found");
         }
     }
@@ -42,12 +44,10 @@ public class WithdrawalController {
         }
     }
 
-    //    VerifyCreate
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
         Withdrawal withdrawal = new Withdrawal();
         Optional<Account> account = accountService.getById(accountId);
-        if (account.isPresent()) { withdrawalService.createWithdrawal(withdrawal);
-        } else {
+        if (!account.isPresent()) {
             throw new ResourceNotFoundException("Error creating withdrawal: Account not found");
         }
     }
@@ -68,7 +68,6 @@ public class WithdrawalController {
         }
     }
 
-    //get all withdrawals for a specific account
     @RequestMapping(value = "/accounts/{accountId}/withdrawals", method = RequestMethod.GET)
     public ResponseEntity<?> findAllByAccountId(@PathVariable Long accountId) {
         verifyAccount(accountId);
@@ -77,7 +76,6 @@ public class WithdrawalController {
         return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
-    //get withdrawal by id
     @RequestMapping(value = "/withdrawals/{withdrawalId}", method = RequestMethod.GET)
     public ResponseEntity<?> getWithdrawal(@PathVariable Long withdrawalId) {
         verifyWithdrawal(withdrawalId);
@@ -86,7 +84,6 @@ public class WithdrawalController {
         return new ResponseEntity<>(successfulResponseOptional, HttpStatus.OK);
     }
 
-    //create a withdrawal
     @RequestMapping(value = "/accounts/{accountId}/withdrawals", method = RequestMethod.POST)
     public ResponseEntity<?> createWithdrawal(@PathVariable Long accountId, @RequestBody Withdrawal withdrawal) {
         verifyCreate(accountId);
@@ -95,7 +92,6 @@ public class WithdrawalController {
         return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);
     }
 
-    //update an existing withdrawal
     @RequestMapping(value = "/withdrawals/{withdrawalId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateWithdrawal(@RequestBody Withdrawal withdrawal, @PathVariable Long withdrawalId) {
         verifyUpdate(withdrawalId);
@@ -104,7 +100,6 @@ public class WithdrawalController {
         return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
-    //delete a specific withdrawal
     @RequestMapping(value = "/withdrawals/{withdrawalId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteWithdrawal(@PathVariable Long withdrawalId) {
         verifyDelete(withdrawalId);

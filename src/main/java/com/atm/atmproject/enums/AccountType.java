@@ -7,7 +7,6 @@ public enum AccountType {
 
     private final String type;
 
-
     AccountType(String type) {
         this.type = type;
     }

@@ -32,7 +32,6 @@ public class Deposit {
 
     private Long accountId;
 
-
     public Long getAccountId() {
         return accountId;
     }
