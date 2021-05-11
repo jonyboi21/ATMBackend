@@ -18,7 +18,7 @@ public class WithdrawalService {
     private WithdrawalRepository withdrawalRepository;
 
     public Iterable<Withdrawal> getAllByAccountId(Long accountId) {
-        logger.info("SUCCESSFULLY RETRIEVED ALL Withdrawals BY ACCOUNT ID");
+        logger.info("SUCCESSFULLY RETRIEVED ALL WITHDRAWALS BY ACCOUNT ID");
         return withdrawalRepository.findAllByAccountId(accountId);
     }
 

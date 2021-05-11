@@ -31,9 +31,7 @@ public class DepositController {
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
         Deposit deposit = new Deposit();
         Optional<Account> account = accountService.getById(accountId);
-        if (account.isPresent()) { depositService.createDeposit(deposit);
-        } else {
-            throw new ResourceNotFoundException("Account not found");
+        if (!account.isPresent()) { throw new ResourceNotFoundException("Account not found");
         }
     }
 
@@ -49,9 +47,7 @@ public class DepositController {
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
         Deposit deposit = new Deposit();
         Optional<Account> account = accountService.getById(accountId);
-        if (account.isPresent()) { depositService.createDeposit(deposit);
-        } else {
-            throw new ResourceNotFoundException("Error creating deposit: Account not found");
+        if (!account.isPresent()) { throw new ResourceNotFoundException("Error creating deposit: Account not found");
         }
     }
 
