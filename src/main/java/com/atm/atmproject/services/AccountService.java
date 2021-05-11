@@ -69,8 +69,6 @@ public class AccountService {
         logger.info("DELETED CUSTOMER'S ACCOUNT");
     }
 
-
-
 }
 
 
