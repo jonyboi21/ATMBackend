@@ -4,12 +4,7 @@ import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Account;
 import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.CustomerRepository;
-import com.sun.istack.NotNull;
-import okhttp3.Protocol;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
