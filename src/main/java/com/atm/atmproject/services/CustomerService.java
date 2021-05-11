@@ -21,8 +21,8 @@ public class CustomerService {
 
     //get all customers
     public Iterable<Customer> getAllCustomers() {
-        if (customerRepository.findAll() == null) {
-            throw new ResourceNotFoundException("error");
+        if (!(customerRepository.findAll().iterator().hasNext())) {
+            throw new ResourceNotFoundException("Error fetching accounts");
         } else {
             logger.info("SUCCESSFULLY RETRIEVED ALL CUSTOMERS");
             return customerRepository.findAll();
@@ -57,13 +57,6 @@ public class CustomerService {
     public void verifyCustomer(Long customerId) throws ResourceNotFoundException{
         if (!(customerRepository.existsById(customerId))) {
             throw new ResourceNotFoundException("Error fetching account");
-        }
-    }
-
-    public void verifyCustomersInRepository() throws ResourceNotFoundException{
-        Iterable<Customer> customer = getAllCustomers();
-        if (!(customer.iterator().hasNext())) {
-            throw new ResourceNotFoundException("Error fetching accounts");
         }
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 
 @RestController
@@ -19,8 +18,6 @@ public class CustomerController {
     //get all customers
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public ResponseEntity<?> getAllCustomers() {
-        customerService.verifyCustomersInRepository();
-        Iterable<Customer> getAllCustomers = customerService.getAllCustomers();
         SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
         return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
