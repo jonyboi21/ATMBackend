@@ -1,9 +1,7 @@
 package com.atm.atmproject.controllers;
 
 import com.atm.atmproject.exception.ResourceNotFoundException;
-import com.atm.atmproject.models.Account;
-import com.atm.atmproject.models.Deposit;
-import com.atm.atmproject.models.Withdrawal;
+import com.atm.atmproject.models.*;
 import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.DepositRepository;
 import com.atm.atmproject.services.AccountService;
@@ -78,7 +76,8 @@ public class DepositController {
     public ResponseEntity<?> getAllFromAccount(@PathVariable Long accountId) {
         verifyAccount(accountId);
         Iterable<Deposit> a = depositService.getAllByAccountId(accountId);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     //get deposit by id
@@ -86,7 +85,8 @@ public class DepositController {
     public ResponseEntity<?> getDepositById(@PathVariable Long depositId) {
         verifyDeposit(depositId);
         Optional<Deposit> a = depositService.getById(depositId);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponseOptional successfulResponseOptional = new SuccessfulResponseOptional(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>(successfulResponseOptional, HttpStatus.OK);
     }
 
     //create a deposit
@@ -94,7 +94,8 @@ public class DepositController {
     public ResponseEntity<?> createDeposit(@PathVariable Long accountId, @RequestBody Deposit deposit) {
         verifyCreate(accountId);
         depositService.createDeposit(deposit);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Created deposit and added it to the account", deposit);
+        return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);
     }
 
     //update an existing deposit
@@ -102,7 +103,8 @@ public class DepositController {
     public ResponseEntity<?> updateDeposit(@RequestBody Deposit deposit, @PathVariable Long depositId) {
         verifyUpdate(depositId);
         depositService.updateDeposit(deposit, depositId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(202, "Accepted deposit modification");
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     //delete a specific deposit
@@ -110,6 +112,7 @@ public class DepositController {
     public ResponseEntity<?> deleteDeposit(@PathVariable Long depositId) {
         verifyDelete(depositId);
         depositService.deleteDeposit(depositId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(204, null);
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 }
