@@ -1,17 +1,17 @@
 package com.atm.atmproject.models;
 
 public class SuccessfulResponseWrapper {
-    private SuccessfulResponse successfulResponse;
+    private SuccessfulResponseIterable successfulResponseIterable;
 
-    public SuccessfulResponseWrapper(SuccessfulResponse successfulResponse) {
-        this.successfulResponse = successfulResponse;
+    public SuccessfulResponseWrapper(SuccessfulResponseIterable successfulResponseIterable) {
+        this.successfulResponseIterable = successfulResponseIterable;
     }
 
-    public SuccessfulResponse getSuccessfulResponse() {
-        return successfulResponse;
+    public SuccessfulResponseIterable getSuccessfulResponse() {
+        return successfulResponseIterable;
     }
 
-    public void setSuccessfulResponse(SuccessfulResponse successfulResponse) {
-        this.successfulResponse = successfulResponse;
+    public void setSuccessfulResponse(SuccessfulResponseIterable successfulResponseIterable) {
+        this.successfulResponseIterable = successfulResponseIterable;
     }
 }

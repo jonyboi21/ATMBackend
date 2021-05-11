@@ -1,6 +1,9 @@
 package com.atm.atmproject.controllers;
 
 import com.atm.atmproject.models.Account;
+import com.atm.atmproject.models.SuccessfulResponseIterable;
+import com.atm.atmproject.models.SuccessfulResponseObject;
+import com.atm.atmproject.models.SuccessfulResponseOptional;
 import com.atm.atmproject.repositories.CustomerRepository;
 import com.atm.atmproject.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,32 +32,37 @@ public class AccountController {
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.GET)
     public ResponseEntity<?> getAccountById(@PathVariable Long accountId) {
         Optional<Account> a = accountService.getById(accountId);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponseOptional successfulResponseIterable = new SuccessfulResponseOptional(HttpStatus.OK.value(), "Success",a);
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.GET)
     public ResponseEntity<?> getAllAccountsFromCustomer(@PathVariable Long customerId) {
         Iterable<Account> a = accountService.getAllAccountsFromCustomer(customerId);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(),"Success",a);
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.POST)
     public ResponseEntity<?> createAnAccount(@RequestBody Account account, @PathVariable Long customerId) {
         accountService.createAccount(account, customerId);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.OK.value(),"Account created", (Iterable<?>) account);
+        return new ResponseEntity<>(successfulResponseObject,HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateAnAccount(@RequestBody Account account, @PathVariable Long accountId) {
         Account a = accountService.updateAccount(accountId, account);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(), "Customer account updated");
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accounts/{accountId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteSpecificAccount(@PathVariable Long accountId) {
         accountService.deleteAccount(accountId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(),"Account successfully deleted");
+        return new ResponseEntity<>(successfulResponseIterable,HttpStatus.OK);
     }
 
 }

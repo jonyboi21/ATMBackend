@@ -1,9 +1,7 @@
 package com.atm.atmproject.controllers;
 
-import com.atm.atmproject.error.ValidationError;
-import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Customer;
-import com.atm.atmproject.models.SuccessfulResponse;
+import com.atm.atmproject.models.SuccessfulResponseIterable;
 import com.atm.atmproject.models.SuccessfulResponseWrapper;
 import com.atm.atmproject.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import java.util.Optional;
 @RestController
 public class CustomerController {
 
-    private SuccessfulResponse successfulResponse;
+    private SuccessfulResponseIterable successfulResponseIterable;
 
     private SuccessfulResponseWrapper successfulResponseWrapper;
 
@@ -30,8 +28,8 @@ public class CustomerController {
     public ResponseEntity<?> getAllCustomers() {
         customerService.verifyCustomersInRepository();
         Iterable<Customer> getAllCustomers = customerService.getAllCustomers();
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
-        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
+        return new ResponseEntity<Object>(successfulResponseIterable, HttpStatus.OK);
     }
 
     //get customer by Id

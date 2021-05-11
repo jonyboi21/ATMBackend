@@ -5,28 +5,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SuccessfulResponse {
+public class SuccessfulResponseOptional {
+
     private int code;
     private String message;
-    private Iterable<?> data;
-    private Optional<?> Data;
+    private Optional<?> data;
 
-
-    public SuccessfulResponse(int code, String message, Iterable<?> data) {
+    public SuccessfulResponseOptional(int code, String message, Optional<Account> date) {
         this.code = code;
         this.message = message;
-        this.data = data;
-    }
-
-    public SuccessfulResponse(int code, String message, Optional<?> Data) {
-        this.code = code;
-        this.message = message;
-        this.Data = Data;
-    }
-
-    public SuccessfulResponse(int code, String message) {
-        this.code = code;
-        this.message = message;
+        this.data = date;
     }
 
     public int getCode() {
@@ -45,15 +33,11 @@ public class SuccessfulResponse {
         this.message = message;
     }
 
-    public Iterable<?> getData() {
+    public Optional<?> getData() {
         return data;
     }
 
-    public void setData(Iterable<?> data) {
-        this.data = data;
-    }
-
     public void setData(Optional<?> data) {
-        Data = data;
+        this.data = data;
     }
 }
