@@ -52,6 +52,4 @@ public class CustomerController {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }
