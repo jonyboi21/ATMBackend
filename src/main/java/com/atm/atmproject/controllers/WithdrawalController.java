@@ -73,8 +73,8 @@ public class WithdrawalController {
     public ResponseEntity<?> findAllByAccountId(@PathVariable Long accountId) {
         verifyAccount(accountId);
         Iterable<Withdrawal> a = withdrawalService.getAllByAccountId(accountId);
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
-        return new ResponseEntity<>(successfulResponse, HttpStatus.OK);
+        //SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 
     //get withdrawal by id
@@ -82,8 +82,8 @@ public class WithdrawalController {
     public ResponseEntity<?> getWithdrawal(@PathVariable Long withdrawalId) {
         verifyWithdrawal(withdrawalId);
         Optional<Withdrawal> a = withdrawalService.getWithdrawal(withdrawalId);
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
-        return new ResponseEntity<>(successfulResponse, HttpStatus.OK);
+        //SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 
     //create a withdrawal
