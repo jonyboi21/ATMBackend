@@ -1,10 +1,7 @@
 package com.atm.atmproject.controllers;
 
 import com.atm.atmproject.exception.ResourceNotFoundException;
-import com.atm.atmproject.models.Account;
-import com.atm.atmproject.models.Bill;
-import com.atm.atmproject.models.Customer;
-import com.atm.atmproject.models.Withdrawal;
+import com.atm.atmproject.models.*;
 import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.WithdrawalRepository;
 import com.atm.atmproject.services.AccountService;
@@ -76,7 +73,8 @@ public class WithdrawalController {
     public ResponseEntity<?> findAllByAccountId(@PathVariable Long accountId) {
         verifyAccount(accountId);
         Iterable<Withdrawal> a = withdrawalService.getAllByAccountId(accountId);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>(successfulResponse, HttpStatus.OK);
     }
 
     //get withdrawal by id
@@ -84,7 +82,8 @@ public class WithdrawalController {
     public ResponseEntity<?> getWithdrawal(@PathVariable Long withdrawalId) {
         verifyWithdrawal(withdrawalId);
         Optional<Withdrawal> a = withdrawalService.getWithdrawal(withdrawalId);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), null, a);
+        return new ResponseEntity<>(successfulResponse, HttpStatus.OK);
     }
 
     //create a withdrawal
@@ -92,6 +91,7 @@ public class WithdrawalController {
     public ResponseEntity<?> createWithdrawal(@PathVariable Long accountId, @RequestBody Withdrawal withdrawal) {
         verifyCreate(accountId);
         withdrawalService.createWithdrawal(withdrawal);
+        //SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Created withdrawal and deducted it from the account", withdrawalService.createWithdrawal(withdrawal));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
