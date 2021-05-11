@@ -1,8 +1,6 @@
 package com.atm.atmproject.controllers;
 import com.atm.atmproject.exception.ResourceNotFoundException;
-import com.atm.atmproject.models.Account;
-import com.atm.atmproject.models.Bill;
-import com.atm.atmproject.models.Customer;
+import com.atm.atmproject.models.*;
 import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.BillRepo;
 import com.atm.atmproject.repositories.CustomerRepository;
@@ -40,28 +38,26 @@ public class BillController {
 
 //  verify Methods
 
-// VerifyAccount
+    // VerifyAccount
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
         Bill bill = new Bill();
         Optional<Account> account = accountService.getById(accountId);
-        if (account.isPresent()) { billService.createBill(bill);
-        } else {
+        if (!account.isPresent()) {
             throw new ResourceNotFoundException("error fetching bills");
         }
     }
 
-//    VerifyCreate
+    //    VerifyCreate
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
-    Bill bill = new Bill();
-    Optional<Account> account = accountService.getById(accountId);
-    if (account.isPresent()) { billService.createBill(bill);
-    } else {
-        throw new ResourceNotFoundException("Error creating bill: Account not found");
-    }
+        Bill bill = new Bill();
+        Optional<Account> account = accountService.getById(accountId);
+        if (!account.isPresent()) {
+            throw new ResourceNotFoundException("Error creating bill: Account not found");
         }
+    }
 
 
-//    VerifyBill
+    //    VerifyBill
     public void verifyBill(Long billId) throws ResourceNotFoundException {
         Bill bill = new Bill();
         Optional<Bill> bill1 = billRepo.findById(billId);
@@ -70,27 +66,23 @@ public class BillController {
         }
     }
 
-//    VerifyCustomer
+    //    VerifyCustomer
     public void verifyCustomer(Long customerId) throws ResourceNotFoundException {
         Bill bill = new Bill();
         Optional<Customer> customer = customerService.getCustomerById(customerId);
-        if (customer.isPresent()) { customerService.getCustomerById(customerId);
-        } else {
+        if (!customer.isPresent()) {
             throw new ResourceNotFoundException("error fetching bills");
         }
     }
 
-//    Verify BillId Put
+    //    Verify BillId Put
     public void verifyUpdate(Long billId) throws ResourceNotFoundException {
-    Bill bill = new Bill();
-    Optional<Bill> bill1 = billRepo.findById(billId);
-    if (bill1.isEmpty()) {
-        throw new ResourceNotFoundException("Bill ID: " + billId + " does not exist");
-    }
+        Bill bill = new Bill();
+        Optional<Bill> bill1 = billRepo.findById(billId);
+        if (bill1.isEmpty()) {
+            throw new ResourceNotFoundException("Bill ID: " + billId + " does not exist");
         }
-
-
-
+    }
 
 
     //get all bills for specific account
@@ -98,14 +90,18 @@ public class BillController {
     public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long accountId) {
         verifyAccount(accountId);
         Iterable<Bill> a = billService.getAllByAccountId(accountId);
-        return new ResponseEntity<>(a, HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(),null,a);
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     //get bill by id
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.GET)
     public ResponseEntity<?> getBillById(@PathVariable Long billId) {
         verifyBill(billId);
-        return new ResponseEntity<>(billRepo.findById(billId), HttpStatus.OK);
+        SuccessfulResponseObject successfulResponseObject
+                = new SuccessfulResponseObject(HttpStatus.OK.value(),null,billService.getById(billId));
+
+        return new ResponseEntity<>(successfulResponseObject, HttpStatus.OK);
     }
 
     //get all bills by customer
@@ -113,7 +109,8 @@ public class BillController {
     public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long customerId) {
         verifyCustomer(customerId);
         Iterable<Bill> c = billService.getAllByCustomerId(customerId);
-        return new ResponseEntity<>(c, HttpStatus.OK);
+       SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(),null,c);
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     // Update a Bill
@@ -121,7 +118,8 @@ public class BillController {
     public ResponseEntity<?> updateBill(@RequestBody Bill bill, @PathVariable Long billId) {
         verifyUpdate(billId);
         billService.updateBill(bill, billId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(202, "Accepted bill modification",null);
+        return new ResponseEntity<>(successfulResponseObject,HttpStatus.OK);
     }
 
     // Create A Bill
@@ -129,19 +127,22 @@ public class BillController {
     public ResponseEntity<?> createBill(@PathVariable Long accountId, @RequestBody Bill bill) {
         verifyCreate(accountId);
         billService.createBill(bill);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Created bill and added it to the account",bill);
+        return new ResponseEntity<>(successfulResponseObject,HttpStatus.CREATED);
     }
 
-// delete a bill
-    @RequestMapping(value="/bills/{billId}", method=RequestMethod.DELETE)
+    // delete a bill
+    @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deletePoll(@PathVariable Long billId) {
         Optional<Bill> bill = billService.getById(billId);
         if (bill.isEmpty()) {
             throw new ResourceNotFoundException("This id: " + billId + " does not exist in bills");
+        } else {
+            billService.deleteBill(billId);
+            SuccessfulResponseOptional successfulResponseOptional = new SuccessfulResponseOptional(204, null, null);
+            return new ResponseEntity<>(successfulResponseOptional,HttpStatus.OK);
         }
-        billService.deleteBill(billId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 //“This id does not exist in bills”
 
+    }
 }
