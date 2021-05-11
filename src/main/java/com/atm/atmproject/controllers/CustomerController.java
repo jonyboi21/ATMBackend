@@ -45,9 +45,9 @@ public class CustomerController {
 
     //create a customer
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
-    public ResponseEntity<?> createCustomer(@Validated @RequestBody Customer customer, @PathVariable Long customerId) {
+    public ResponseEntity<?> createCustomer(@Validated @RequestBody Customer customer) {
         customerService.createCustomer(customer);
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Customer account updated", customerService.getCustomerById(customerId));
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Customer account updated", Optional.ofNullable(getCustomerById(customer.getCustomerId()).getBody()));
         return new ResponseEntity<Object>(successfulResponse, HttpStatus.CREATED);
     }
 
