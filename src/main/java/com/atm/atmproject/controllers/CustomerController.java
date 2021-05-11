@@ -1,6 +1,6 @@
 package com.atm.atmproject.controllers;
+import com.atm.atmproject.models.*;
 import com.atm.atmproject.models.Customer;
-import com.atm.atmproject.models.SuccessfulResponse;
 import com.atm.atmproject.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @RestController
 public class CustomerController {
-
     @Autowired
     private CustomerService customerService;
 
@@ -22,8 +21,8 @@ public class CustomerController {
     public ResponseEntity<?> getAllCustomers() {
         customerService.verifyCustomersInRepository();
         Iterable<Customer> getAllCustomers = customerService.getAllCustomers();
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
-        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
+        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
+        return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
 
     //get customer by Id
@@ -31,16 +30,16 @@ public class CustomerController {
     public ResponseEntity<?> getCustomerById(@PathVariable Long customerId) {
         customerService.verifyCustomer(customerId);
         Optional<Customer> getCustomerById = customerService.getCustomerById(customerId);
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", getCustomerById);
-        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
+        SuccessfulResponseOptional successfulResponseOptional= new SuccessfulResponseOptional(HttpStatus.OK.value(), "Success", getCustomerById);
+        return new ResponseEntity<>(successfulResponseOptional, HttpStatus.OK);
     }
 
     //create a customer
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
     public ResponseEntity<?> createCustomer(@Validated @RequestBody Customer customer) {
         customerService.createCustomer(customer);
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Customer account updated", Optional.ofNullable(getCustomerById(customer.getCustomerId()).getBody()));
-        return new ResponseEntity<Object>(successfulResponse, HttpStatus.CREATED);
+        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.OK.value(), "Customer account updated", customer);
+        return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);
     }
 
     //update a customer

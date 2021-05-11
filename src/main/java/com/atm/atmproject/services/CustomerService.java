@@ -2,8 +2,6 @@ package com.atm.atmproject.services;
 
 import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Customer;
-import com.atm.atmproject.models.SuccessfulResponse;
-import com.atm.atmproject.models.SuccessfulResponseWrapper;
 import com.atm.atmproject.repositories.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
