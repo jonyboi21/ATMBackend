@@ -1,8 +1,6 @@
 package com.atm.atmproject.controllers;
-
 import com.atm.atmproject.models.Customer;
-import com.atm.atmproject.models.SuccessfulResponseIterable;
-import com.atm.atmproject.models.SuccessfulResponseWrapper;
+import com.atm.atmproject.models.SuccessfulResponse;
 import com.atm.atmproject.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +13,6 @@ import java.util.Optional;
 @RestController
 public class CustomerController {
 
-    private SuccessfulResponseIterable successfulResponseIterable;
-
-    private SuccessfulResponseWrapper successfulResponseWrapper;
-
     @Autowired
     private CustomerService customerService;
 
@@ -28,8 +22,8 @@ public class CustomerController {
     public ResponseEntity<?> getAllCustomers() {
         customerService.verifyCustomersInRepository();
         Iterable<Customer> getAllCustomers = customerService.getAllCustomers();
-        SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
-        return new ResponseEntity<Object>(successfulResponseIterable, HttpStatus.OK);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
+        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
     }
 
     //get customer by Id
@@ -37,16 +31,16 @@ public class CustomerController {
     public ResponseEntity<?> getCustomerById(@PathVariable Long customerId) {
         customerService.verifyCustomer(customerId);
         Optional<Customer> getCustomerById = customerService.getCustomerById(customerId);
-       // SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", getCustomerById);
-        return new ResponseEntity<Object>( HttpStatus.OK);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", getCustomerById);
+        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
     }
 
     //create a customer
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
-    public ResponseEntity<?> createCustomer(@Validated @RequestBody Customer customer, @PathVariable Long customerId) {
+    public ResponseEntity<?> createCustomer(@Validated @RequestBody Customer customer) {
         customerService.createCustomer(customer);
-        //SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Customer account updated", customerService.getCustomerById(customerId));
-        return new ResponseEntity<Object>(HttpStatus.CREATED);
+        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Customer account updated", Optional.ofNullable(getCustomerById(customer.getCustomerId()).getBody()));
+        return new ResponseEntity<Object>(successfulResponse, HttpStatus.CREATED);
     }
 
     //update a customer
