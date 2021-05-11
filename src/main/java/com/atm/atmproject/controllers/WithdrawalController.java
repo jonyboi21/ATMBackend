@@ -28,9 +28,7 @@ public class WithdrawalController {
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
         Withdrawal withdrawal = new Withdrawal();
         Optional<Account> account = accountService.getById(accountId);
-        if (account.isPresent()) { withdrawalService.createWithdrawal(withdrawal);
-        } else {
-            throw new ResourceNotFoundException("Account not found");
+        if (!account.isPresent()) { throw new ResourceNotFoundException("Account not found");
         }
     }
 
@@ -46,9 +44,7 @@ public class WithdrawalController {
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
         Withdrawal withdrawal = new Withdrawal();
         Optional<Account> account = accountService.getById(accountId);
-        if (account.isPresent()) { withdrawalService.createWithdrawal(withdrawal);
-        } else {
-            throw new ResourceNotFoundException("Error creating withdrawal: Account not found");
+        if (!account.isPresent()) { throw new ResourceNotFoundException("Error creating withdrawal: Account not found");
         }
     }
 
