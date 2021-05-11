@@ -6,9 +6,6 @@ public class ValidationError {
     private String code;
     private String message;
 
-//    Getter and Setters
-
-
     public String getCode() {
         return code;
     }
@@ -24,6 +21,4 @@ public class ValidationError {
     public void setMessage(String message) {
         this.message = message;
     }
-
-
 }

@@ -7,10 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
+    Iterable<Account> findAllByCustomerId(Long customerId);
 
-Iterable<Account> findAllByCustomerId(Long customerId);
-
-Integer countAllByCustomerId(Long customerId);
-
-
+    Integer countAllByCustomerId(Long customerId);
 }

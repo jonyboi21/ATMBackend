@@ -21,11 +21,10 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    public Optional<Account> getById(Long accountId){
+    public Optional<Account> getById(Long accountId) {
         if (!(accountRepository.existsById(accountId))) {
             throw new ResourceNotFoundException("error fetching account");
-        }
-        else {
+        } else {
             return accountRepository.findById(accountId);
         }
     }
@@ -34,12 +33,12 @@ public class AccountService {
         if (accountRepository.countAllByCustomerId(customerId) == 0) {
             throw new ResourceNotFoundException("error fetching customer accounts");
         }
-           return accountRepository.findAllByCustomerId(customerId);
+        return accountRepository.findAllByCustomerId(customerId);
     }
 
     public void createAccount(Account account, Long customerId) {
-            account.setCustomerId(customerId);
-            accountRepository.save(account);
+        account.setCustomerId(customerId);
+        accountRepository.save(account);
     }
 
     public Account updateAccount(Long accountId, Account account) {
@@ -52,16 +51,12 @@ public class AccountService {
         }
     }
 
-
     public void deleteAccount(Long accountId) {
-        if(!(accountRepository.existsById(accountId))){
+        if (!(accountRepository.existsById(accountId))) {
             throw new ResourceNotFoundException("Account does not exist");
-        }else
-        accountRepository.deleteById(accountId);
+        } else
+            accountRepository.deleteById(accountId);
     }
-
-
-
 }
 
 
