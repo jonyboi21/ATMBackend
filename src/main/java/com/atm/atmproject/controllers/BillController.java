@@ -14,6 +14,7 @@ import com.atm.atmproject.successfulresponse.SuccessfulResponseOptional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -113,7 +114,7 @@ public class BillController {
     }
 
     @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.POST)
-    public ResponseEntity<?> createBill(@PathVariable Long accountId, @RequestBody Bill bill) {
+    public ResponseEntity<?> createBill(@PathVariable Long accountId, @Validated @RequestBody Bill bill) {
         verifyCreate(accountId);
         billService.createBill(bill);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Created bill and added it to the account", bill);
