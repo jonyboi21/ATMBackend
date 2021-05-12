@@ -2,11 +2,12 @@ package com.atm.atmproject.models;
 
 import com.atm.atmproject.enums.AccountType;
 
-import com.sun.istack.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Account {
@@ -17,10 +18,13 @@ public class Account {
 
     private AccountType type;
 
+    @NotEmpty
     private String nickname;
 
+    @NotNull
     private Integer rewards;
 
+    @NotNull
     private Double balance;
 
     @NotNull

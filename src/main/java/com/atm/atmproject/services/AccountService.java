@@ -22,11 +22,17 @@ public class AccountService {
     private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
 
     public Iterable<Account> getAllAccounts() {
+        if(accountRepository.count() == 0){
+            logger.info("NO ACCOUNTS EXIST");
+            throw new ResourceNotFoundException("error fetching accounts");
+        }
+        logger.info("FOUND ALL ACCOUNTS");
         return accountRepository.findAll();
     }
 
     public Optional<Account> getById(Long accountId) {
         if (!(accountRepository.existsById(accountId))) {
+            logger.info("ACCOUNT BY " + accountId + "DOES NOT EXIST");
             throw new ResourceNotFoundException("error fetching account");
         }
             logger.info("FOUND CUSTOMER ACCOUNT");
@@ -35,13 +41,22 @@ public class AccountService {
 
     public Iterable<Account> getAllAccountsFromCustomer(Long customerId) {
         if (accountRepository.countAllByCustomerId(customerId) == 0) {
+            logger.info("CUSTOMER DOES NOT HAVE ANY ACCOUNTS");
             throw new ResourceNotFoundException("error fetching customer accounts");
+        }
+        else if (!(customerRepository.existsById(customerId))){
+            logger.info("CUSTOMER ACCOUNT BY ID OF "+ customerId + " DOES NOT EXIST");
+            throw new ResourceNotFoundException("Customer account doesn't exist");
         }
             logger.info("FOUND CUSTOMER ACCOUNTS");
            return accountRepository.findAllByCustomerId(customerId);
     }
 
     public void createAccount(Account account, Long customerId) {
+        if(!(customerRepository.existsById(customerId))){
+            logger.info("CUSTOMER'S ACCOUNT DOES NOT EXIST");
+            throw new ResourceNotFoundException("Error");
+        }else
             account.setCustomerId(customerId);
             accountRepository.save(account);
             logger.info("SUCCESSFULLY CREATED CUSTOMER'S ACCOUNT");
@@ -50,6 +65,7 @@ public class AccountService {
 
     public Account updateAccount(Long accountId, Account account) {
         if (!(accountRepository.existsById(account.getId()))) {
+            logger.info("CANNOT UPDATE NON-EXISTING ACCOUNT");
             throw new ResourceNotFoundException("Error");
         } else {
             account.setId(accountId);
@@ -61,6 +77,7 @@ public class AccountService {
 
     public void deleteAccount(Long accountId) {
         if (!(accountRepository.existsById(accountId))) {
+            logger.info("CANNOT DELETE NON-EXISTING ACCOUNT");
             throw new ResourceNotFoundException("Account does not exist");
         }else
         accountRepository.deleteById(accountId);
