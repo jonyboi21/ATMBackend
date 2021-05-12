@@ -33,9 +33,6 @@ public class AccountService {
             return accountRepository.findById(accountId);
         }
 
-
-
-
     public Iterable<Account> getAllAccountsFromCustomer(Long customerId) {
         if (accountRepository.countAllByCustomerId(customerId) == 0) {
             throw new ResourceNotFoundException("error fetching customer accounts");
@@ -50,7 +47,6 @@ public class AccountService {
             logger.info("SUCCESSFULLY CREATED CUSTOMER'S ACCOUNT");
         accountRepository.findAllByCustomerId(customerId);
     }
-
 
     public Account updateAccount(Long accountId, Account account) {
         if (!(accountRepository.existsById(account.getId()))) {
@@ -70,8 +66,6 @@ public class AccountService {
         accountRepository.deleteById(accountId);
         logger.info("DELETED CUSTOMER'S ACCOUNT");
     }
-
-
 }
 
 
