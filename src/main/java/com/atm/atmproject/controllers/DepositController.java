@@ -44,7 +44,6 @@ public class DepositController {
     }
 
     public void verifyDeposit(Long depositId) throws ResourceNotFoundException {
-        Deposit deposit = new Deposit();
         Optional<Deposit> deposit1 = depositRepository.findById(depositId);
         if (deposit1.isEmpty()) {
             logger.info("ERROR FETCHING DEPOSITS WITH ID: " + depositId);
@@ -53,7 +52,6 @@ public class DepositController {
     }
 
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
-        Deposit deposit = new Deposit();
         Optional<Account> account = accountService.getById(accountId);
         if (!account.isPresent()) {
             logger.info("ERROR CREATING DEPOSIT");
@@ -62,7 +60,6 @@ public class DepositController {
     }
 
     public void verifyUpdate(Long depositId) throws ResourceNotFoundException {
-        Deposit deposit = new Deposit();
         Optional<Deposit> deposit1 = depositRepository.findById(depositId);
         if (deposit1.isEmpty()) {
             logger.info("ERROR UPDATING DEPOSIT WITH ID: " + depositId);
@@ -71,7 +68,6 @@ public class DepositController {
     }
 
     public void verifyDelete(Long depositId) throws ResourceNotFoundException {
-        Deposit deposit = new Deposit();
         Optional<Deposit> deposit1 = depositRepository.findById(depositId);
         if (deposit1.isEmpty()) {
             logger.info("ERROR DELETING DEPOSIT ID: " + depositId);
