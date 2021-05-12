@@ -20,6 +20,7 @@ public class CustomerService {
 
     public Iterable<Customer> getAllCustomers() {
         if (!(customerRepository.findAll().iterator().hasNext())) {
+            logger.info("FAILED TO RETRIEVE ALL CUSTOMERS");
             throw new ResourceNotFoundException("Error fetching accounts");
         } else {
             logger.info("SUCCESSFULLY RETRIEVED ALL CUSTOMERS");
