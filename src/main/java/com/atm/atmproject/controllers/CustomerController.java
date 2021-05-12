@@ -1,7 +1,5 @@
 package com.atm.atmproject.controllers;
-
 import com.atm.atmproject.models.Customer;
-
 import com.atm.atmproject.successfulresponse.SuccessfulResponseIterable;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseObject;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseOptional;
@@ -22,10 +20,6 @@ public class CustomerController {
 
     @RequestMapping(value = "/customers", method = RequestMethod.GET)
     public ResponseEntity<?> getAllCustomers() {
-        customerService.verifyCustomersInRepository();
-        Iterable<Customer> getAllCustomers = customerService.getAllCustomers();
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
-        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
         SuccessfulResponseIterable successfulResponseIterable = new SuccessfulResponseIterable(HttpStatus.OK.value(), "Success", customerService.getAllCustomers());
         return new ResponseEntity<>(successfulResponseIterable, HttpStatus.OK);
     }
@@ -34,8 +28,6 @@ public class CustomerController {
     public ResponseEntity<?> getCustomerById(@PathVariable Long customerId) {
         customerService.verifyCustomer(customerId);
         Optional<Customer> getCustomerById = customerService.getCustomerById(customerId);
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Success", getCustomerById);
-        return new ResponseEntity<Object>(successfulResponse, HttpStatus.OK);
         SuccessfulResponseOptional successfulResponseOptional = new SuccessfulResponseOptional(HttpStatus.OK.value(), "Success", getCustomerById);
         return new ResponseEntity<>(successfulResponseOptional, HttpStatus.OK);
     }
@@ -43,8 +35,6 @@ public class CustomerController {
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
     public ResponseEntity<?> createCustomer(@Validated @RequestBody Customer customer) {
         customerService.createCustomer(customer);
-        SuccessfulResponse successfulResponse = new SuccessfulResponse(HttpStatus.OK.value(), "Customer account updated", Optional.ofNullable(getCustomerById(customer.getCustomerId()).getBody()));
-        return new ResponseEntity<Object>(successfulResponse, HttpStatus.CREATED);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.OK.value(), "Customer account updated", customer);
         return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);
     }
