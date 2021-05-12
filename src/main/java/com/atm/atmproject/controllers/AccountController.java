@@ -16,7 +16,6 @@ import java.util.Optional;
 @RestController
 public class AccountController {
 
-
     @Autowired
     private AccountService accountService;
 
@@ -48,7 +47,7 @@ public class AccountController {
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.POST)
     public ResponseEntity<?> createAnAccount(@RequestBody Account account, @PathVariable Long customerId) {
         accountService.createAccount(account, customerId);
-        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.OK.value(), "Account created", account);
+        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Account created", account);
         return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);
     }
 
