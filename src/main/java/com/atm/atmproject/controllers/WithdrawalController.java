@@ -9,15 +9,20 @@ import com.atm.atmproject.services.WithdrawalService;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseIterable;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseObject;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseOptional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 public class WithdrawalController {
+
+    private static final Logger logger = LoggerFactory.getLogger(WithdrawalController.class);
 
     @Autowired
     AccountService accountService;
@@ -28,8 +33,9 @@ public class WithdrawalController {
     @Autowired
     private WithdrawalRepository withdrawalRepository;
 
+
+
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Account> account = accountService.getById(accountId);
         if (!account.isPresent()) {
             throw new ResourceNotFoundException("Account not found");
@@ -37,33 +43,33 @@ public class WithdrawalController {
     }
 
     public void verifyWithdrawal(Long withdrawalId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Withdrawal> withdrawal1 = withdrawalRepository.findById(withdrawalId);
         if (withdrawal1.isEmpty()) {
+            logger.info("ERROR FETCHING WITHDRAWAL WITH ID: " + withdrawalId);
             throw new ResourceNotFoundException("error fetching withdrawal with id: " + withdrawalId);
         }
     }
 
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Account> account = accountService.getById(accountId);
         if (!account.isPresent()) {
+            logger.info("ERROR CREATING WITHDRAWAl");
             throw new ResourceNotFoundException("Error creating withdrawal: Account not found");
         }
     }
 
     public void verifyUpdate(Long withdrawalId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Withdrawal> withdrawal1 = withdrawalRepository.findById(withdrawalId);
         if (withdrawal1.isEmpty()) {
+            logger.info("ERROR UPDATING WITHDRAWAL WITH ID: " + withdrawalId);
             throw new ResourceNotFoundException("Withdrawal ID does not exist");
         }
     }
 
     public void verifyDelete(Long withdrawalId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Withdrawal> withdrawal1 = withdrawalRepository.findById(withdrawalId);
         if (withdrawal1.isEmpty()) {
+            logger.info("ERROR DELETING WITHDRAWAL ID: " + withdrawalId);
             throw new ResourceNotFoundException("This id does not exist in withdrawals");
         }
     }
@@ -85,7 +91,7 @@ public class WithdrawalController {
     }
 
     @RequestMapping(value = "/accounts/{accountId}/withdrawals", method = RequestMethod.POST)
-    public ResponseEntity<?> createWithdrawal(@PathVariable Long accountId, @RequestBody Withdrawal withdrawal) {
+    public ResponseEntity<?> createWithdrawal(@PathVariable Long accountId,@Validated @RequestBody Withdrawal withdrawal) {
         verifyCreate(accountId);
         withdrawalService.createWithdrawal(withdrawal);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Created withdrawal and deducted it from the account", withdrawal);

@@ -47,7 +47,7 @@ public class AccountController {
 
 
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.POST)
-    public ResponseEntity<?> createAnAccount(@Valid @RequestBody Account account, @PathVariable Long customerId) {
+    public ResponseEntity<?> createAnAccount(@Validated @RequestBody Account account, @PathVariable Long customerId) {
         accountService.createAccount(account, customerId);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Account created", account);
         return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);
