@@ -1,13 +1,14 @@
 package com.atm.atmproject.models;
 
 import com.atm.atmproject.enums.Status;
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Bill {
@@ -16,24 +17,34 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+   @NotNull
     private Status status;
 
+    @NotNull
     private String payee;
 
+    @NotNull
     private String nickname;
 
+    @NotNull
     private String creationDate;
 
+    @NotNull
     private String paymentDate;
 
+    @NotNull
     private Integer recurringDate;
 
+    @NotNull
     private String upcomingPaymentDate;
 
+    @NotNull
     private Double paymentAmount;
 
+    @NotNull
     private Long accountId;
 
+    @NotNull
     private Long customerId;
 
     public Long getId() {

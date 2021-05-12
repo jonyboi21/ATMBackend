@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Deposit {
@@ -16,20 +18,28 @@ public class Deposit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     private Transactions type;
 
+    @NotEmpty
     private String transactionDate;
 
+    @NotNull
     private Status status;
 
+    @NotNull
     private Long payeeId;
 
+    @NotNull
     private Medium medium;
 
+    @NotNull
     private Double amount;
 
+    @NotEmpty
     private String description;
 
+    @NotNull
     private Long accountId;
 
     public Long getAccountId() {

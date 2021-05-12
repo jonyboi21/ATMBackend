@@ -11,12 +11,15 @@ import com.atm.atmproject.services.CustomerService;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseIterable;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseObject;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseOptional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.Optional;
 
@@ -41,8 +44,9 @@ public class BillController {
     @Autowired
     private AccountRepository accountRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(BillController.class);
+
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
-        Bill bill = new Bill();
         Optional<Account> account = accountService.getById(accountId);
         if (!account.isPresent()) {
             throw new ResourceNotFoundException("error fetching bills");
@@ -50,15 +54,14 @@ public class BillController {
     }
 
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
-        Bill bill = new Bill();
         Optional<Account> account = accountService.getById(accountId);
-        if (!account.isPresent()) {
+        if (!(account.isPresent())) {
+            logger.info("ERROR CREATING BILL");
             throw new ResourceNotFoundException("Error creating bill: Account not found");
         }
     }
 
     public void verifyBill(Long billId) throws ResourceNotFoundException {
-        Bill bill = new Bill();
         Optional<Bill> bill1 = billRepo.findById(billId);
         if (bill1.isEmpty()) {
             throw new ResourceNotFoundException("error fetching bills with id: " + billId);
@@ -66,7 +69,6 @@ public class BillController {
     }
 
     public void verifyCustomer(Long customerId) throws ResourceNotFoundException {
-        Bill bill = new Bill();
         Optional<Customer> customer = customerService.getCustomerById(customerId);
         if (!customer.isPresent()) {
             throw new ResourceNotFoundException("error fetching bills");
@@ -74,9 +76,9 @@ public class BillController {
     }
 
     public void verifyUpdate(Long billId) throws ResourceNotFoundException {
-        Bill bill = new Bill();
         Optional<Bill> bill1 = billRepo.findById(billId);
         if (bill1.isEmpty()) {
+            logger.info("ERROR UPDATING BILL WITH ID: " + billId);
             throw new ResourceNotFoundException("Bill ID: " + billId + " does not exist");
         }
     }
@@ -115,7 +117,7 @@ public class BillController {
     }
 
     @RequestMapping(value = "/accounts/{accountId}/bills", method = RequestMethod.POST)
-    public ResponseEntity<?> createBill(@PathVariable Long accountId, @RequestBody Bill bill) {
+    public ResponseEntity<?> createBill( @PathVariable Long accountId, @Validated @RequestBody Bill bill) {
         verifyCreate(accountId);
         billService.createBill(bill);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Created bill and added it to the account", bill);
@@ -126,6 +128,7 @@ public class BillController {
     public ResponseEntity<?> deletePoll(@PathVariable Long billId) {
         Optional<Bill> bill = billService.getById(billId);
         if (bill.isEmpty()) {
+            logger.info("ERROR DELETING BILL WITH ID: " + billId);
             throw new ResourceNotFoundException("This id: " + billId + " does not exist in bills");
         } else {
             billService.deleteBill(billId);
