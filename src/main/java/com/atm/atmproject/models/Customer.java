@@ -20,6 +20,7 @@ public class Customer {
     @NotEmpty
     private String lastName;
 
+    @NotEmpty
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Address> addressSet;
 
