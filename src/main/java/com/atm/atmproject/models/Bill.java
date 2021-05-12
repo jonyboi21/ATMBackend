@@ -40,8 +40,10 @@ public class Bill {
     @NotNull
     private Double paymentAmount;
 
+    @NotNull
     private Long accountId;
 
+    @NotNull
     private Long customerId;
 
     public Long getId() {

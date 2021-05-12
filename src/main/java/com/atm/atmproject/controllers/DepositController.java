@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -91,7 +92,7 @@ public class DepositController {
     }
 
     @RequestMapping(value = "/accounts/{accountId}/deposits", method = RequestMethod.POST)
-    public ResponseEntity<?> createDeposit(@PathVariable Long accountId, @RequestBody Deposit deposit) {
+    public ResponseEntity<?> createDeposit(@PathVariable Long accountId,@Validated @RequestBody Deposit deposit) {
         verifyCreate(accountId);
         depositService.createDeposit(deposit);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Created deposit and added it to the account", deposit);
