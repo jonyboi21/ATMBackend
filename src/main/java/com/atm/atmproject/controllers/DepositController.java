@@ -9,6 +9,8 @@ import com.atm.atmproject.services.DepositService;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseIterable;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseObject;
 import com.atm.atmproject.successfulresponse.SuccessfulResponseOptional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.Optional;
 
 @RestController
 public class DepositController {
+
+    private static final Logger logger = LoggerFactory.getLogger(DepositController.class);
 
     @Autowired
     private DepositRepository depositRepository;
@@ -43,6 +47,7 @@ public class DepositController {
         Deposit deposit = new Deposit();
         Optional<Deposit> deposit1 = depositRepository.findById(depositId);
         if (deposit1.isEmpty()) {
+            logger.info("ERROR FETCHING DEPOSITS WITH ID: " + depositId);
             throw new ResourceNotFoundException("error fetching deposit with id: " + depositId);
         }
     }
@@ -51,6 +56,7 @@ public class DepositController {
         Deposit deposit = new Deposit();
         Optional<Account> account = accountService.getById(accountId);
         if (!account.isPresent()) {
+            logger.info("ERROR CREATING DEPOSIT");
             throw new ResourceNotFoundException("Error creating deposit: Account not found");
         }
     }
@@ -59,6 +65,7 @@ public class DepositController {
         Deposit deposit = new Deposit();
         Optional<Deposit> deposit1 = depositRepository.findById(depositId);
         if (deposit1.isEmpty()) {
+            logger.info("ERROR UPDATING DEPOSIT WITH ID: " + depositId);
             throw new ResourceNotFoundException("Deposit ID does not exist");
         }
     }
@@ -67,6 +74,7 @@ public class DepositController {
         Deposit deposit = new Deposit();
         Optional<Deposit> deposit1 = depositRepository.findById(depositId);
         if (deposit1.isEmpty()) {
+            logger.info("ERROR DELETING DEPOSIT ID: " + depositId);
             throw new ResourceNotFoundException("This id does not exist in deposits");
         }
     }
