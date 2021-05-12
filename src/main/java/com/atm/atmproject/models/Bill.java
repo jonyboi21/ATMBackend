@@ -1,12 +1,13 @@
 package com.atm.atmproject.models;
 
 import com.atm.atmproject.enums.Status;
+import javax.validation.constraints.NotEmpty;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -16,25 +17,25 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty
+   @NotNull
     private Status status;
 
-    @NotEmpty
+    @NotNull
     private String payee;
 
-    @NotEmpty
+    @NotNull
     private String nickname;
 
-    @NotEmpty
+    @NotNull
     private String creationDate;
 
-    @NotEmpty
+    @NotNull
     private String paymentDate;
 
     @NotNull
     private Integer recurringDate;
 
-    @NotEmpty
+    @NotNull
     private String upcomingPaymentDate;
 
     @NotNull
