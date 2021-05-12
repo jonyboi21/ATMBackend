@@ -1,9 +1,5 @@
 package com.atm.atmproject.models;
 
-
-
-
-
 import com.atm.atmproject.enums.Medium;
 import com.atm.atmproject.enums.Status;
 import com.atm.atmproject.enums.Transactions;

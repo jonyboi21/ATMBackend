@@ -36,7 +36,6 @@ public class DepositController {
     private AccountService accountService;
 
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
-        Deposit deposit = new Deposit();
         Optional<Account> account = accountService.getById(accountId);
         if (!account.isPresent()) {
             throw new ResourceNotFoundException("Account not found");

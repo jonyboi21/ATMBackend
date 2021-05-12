@@ -36,7 +36,6 @@ public class WithdrawalController {
 
 
     public void verifyAccount(Long accountId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Account> account = accountService.getById(accountId);
         if (!account.isPresent()) {
             throw new ResourceNotFoundException("Account not found");
@@ -44,7 +43,6 @@ public class WithdrawalController {
     }
 
     public void verifyWithdrawal(Long withdrawalId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Withdrawal> withdrawal1 = withdrawalRepository.findById(withdrawalId);
         if (withdrawal1.isEmpty()) {
             logger.info("ERROR FETCHING WITHDRAWAL WITH ID: " + withdrawalId);
@@ -53,7 +51,6 @@ public class WithdrawalController {
     }
 
     public void verifyCreate(Long accountId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Account> account = accountService.getById(accountId);
         if (!account.isPresent()) {
             logger.info("ERROR CREATING WITHDRAWAl");
@@ -62,7 +59,6 @@ public class WithdrawalController {
     }
 
     public void verifyUpdate(Long withdrawalId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Withdrawal> withdrawal1 = withdrawalRepository.findById(withdrawalId);
         if (withdrawal1.isEmpty()) {
             logger.info("ERROR UPDATING WITHDRAWAL WITH ID: " + withdrawalId);
@@ -71,7 +67,6 @@ public class WithdrawalController {
     }
 
     public void verifyDelete(Long withdrawalId) throws ResourceNotFoundException {
-        Withdrawal withdrawal = new Withdrawal();
         Optional<Withdrawal> withdrawal1 = withdrawalRepository.findById(withdrawalId);
         if (withdrawal1.isEmpty()) {
             logger.info("ERROR DELETING WITHDRAWAL ID: " + withdrawalId);

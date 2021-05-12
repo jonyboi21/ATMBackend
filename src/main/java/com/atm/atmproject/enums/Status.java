@@ -1,6 +1,5 @@
 package com.atm.atmproject.enums;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public enum Status {
