@@ -1,8 +1,8 @@
 package com.atm.atmproject.models;
 
 import com.atm.atmproject.enums.AccountType;
-import com.sun.istack.NotNull;
 
+import com.sun.istack.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

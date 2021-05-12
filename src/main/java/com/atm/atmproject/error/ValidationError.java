@@ -1,6 +1,5 @@
 package com.atm.atmproject.error;
 
-
 public class ValidationError {
 
     private String code;
