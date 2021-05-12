@@ -2,10 +2,7 @@ package com.atm.atmproject.successfulresponse;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-<<<<<<< HEAD:src/main/java/com/atm/atmproject/models/SuccessfulResponseObject.java
 import java.util.Optional;
-=======
->>>>>>> 0d93ce16b94fa4f8d1b50594e63b3aaabf3843b1:src/main/java/com/atm/atmproject/successfulresponse/SuccessfulResponseObject.java
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SuccessfulResponseObject {
     private int code;

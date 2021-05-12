@@ -9,8 +9,10 @@ import com.atm.atmproject.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -45,7 +47,7 @@ public class AccountController {
 
 
     @RequestMapping(value = "/customers/{customerId}/accounts", method = RequestMethod.POST)
-    public ResponseEntity<?> createAnAccount(@RequestBody Account account, @PathVariable Long customerId) {
+    public ResponseEntity<?> createAnAccount(@Valid @RequestBody Account account, @PathVariable Long customerId) {
         accountService.createAccount(account, customerId);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Account created", account);
         return new ResponseEntity<>(successfulResponseObject, HttpStatus.CREATED);

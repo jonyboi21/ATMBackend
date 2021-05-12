@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Account {
@@ -17,10 +18,13 @@ public class Account {
 
     private AccountType type;
 
+    @NotEmpty
     private String nickname;
 
+    @NotNull
     private Integer rewards;
 
+    @NotNull
     private Double balance;
 
     @NotNull
