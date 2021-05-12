@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class BillService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DepositService.class);
+    private static final Logger logger = LoggerFactory.getLogger(BillService.class);
 
     @Autowired
     private BillRepo billRepo;

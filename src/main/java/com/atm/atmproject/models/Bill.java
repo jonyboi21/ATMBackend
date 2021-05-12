@@ -1,6 +1,8 @@
 package com.atm.atmproject.models;
 
 import com.atm.atmproject.enums.Status;
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
