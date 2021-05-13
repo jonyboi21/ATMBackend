@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class BillService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DepositService.class);
+    private static final Logger logger = LoggerFactory.getLogger(BillService.class);
 
     @Autowired
     private BillRepo billRepo;
@@ -29,11 +29,13 @@ public class BillService {
     private BillController billController;
 
     public Iterable<Bill> getAllByAccountId(Long accountId) {
+
         logger.info("SUCCESSFULLY RETRIEVED ALL BILLS BY ACCOUNT ID: " + accountId);
         return billRepo.getAllBillsByAccountId(accountId);
     }
 
     public Iterable<Bill> getAllByCustomerId(Long customerId) {
+
         logger.info("SUCCESSFULLY RETRIEVED ALL BILLS BY Customer ID: " + customerId);
         return billRepo.getAllBillsByCustomerId(customerId);
     }

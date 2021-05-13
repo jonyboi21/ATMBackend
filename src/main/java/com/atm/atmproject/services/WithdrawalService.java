@@ -1,5 +1,6 @@
 package com.atm.atmproject.services;
 
+import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Withdrawal;
 import com.atm.atmproject.repositories.WithdrawalRepository;
 import org.slf4j.Logger;
@@ -18,8 +19,13 @@ public class WithdrawalService {
     private WithdrawalRepository withdrawalRepository;
 
     public Iterable<Withdrawal> getAllByAccountId(Long accountId) {
-        logger.info("SUCCESSFULLY RETRIEVED ALL WITHDRAWALS BY ACCOUNT ID");
-        return withdrawalRepository.findAllByAccountId(accountId);
+        if (!(withdrawalRepository.findAll().iterator().hasNext())) {
+            logger.info("WITHDRAWALS ARE EMPTY, FAILED TO RETRIEVE WITHDRAWALS");
+            throw new ResourceNotFoundException("There are no withdrawals to fetch");
+        } else {
+            logger.info("SUCCESSFULLY RETRIEVED ALL WITHDRAWALS BY ACCOUNT ID");
+            return withdrawalRepository.findAllByAccountId(accountId);
+        }
     }
 
     public Optional<Withdrawal> getWithdrawal(Long withdrawalId) {

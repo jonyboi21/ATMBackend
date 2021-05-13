@@ -1,5 +1,6 @@
 package com.atm.atmproject.services;
 
+import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Deposit;
 import com.atm.atmproject.repositories.DepositRepository;
 import org.slf4j.Logger;
@@ -18,8 +19,13 @@ public class DepositService {
     private DepositRepository depositRepository;
 
     public Iterable<Deposit> getAllByAccountId(Long accountId) {
-        logger.info("SUCCESSFULLY RETRIEVED ALL DEPOSITS BY ACCOUNT ID");
-        return depositRepository.findAllByAccountId(accountId);
+        if (!(depositRepository.findAll().iterator().hasNext())) {
+            logger.info("DEPOSITS ARE EMPTY, FAILED TO RETRIEVE DEPOSITS");
+            throw new ResourceNotFoundException("There are no deposits to fetch");
+        } else {
+            logger.info("SUCCESSFULLY RETRIEVED ALL DEPOSITS BY ACCOUNT ID");
+            return depositRepository.findAllByAccountId(accountId);
+        }
     }
 
     public Optional<Deposit> getById(Long depositId) {
