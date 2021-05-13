@@ -38,9 +38,10 @@ public class DepositService {
     }
 
     public void createDeposit(Deposit deposit) {
-        Double a = accountRepository.findById(deposit.getAccountId()).get().getBalance();
-          a += deposit.getAmount();
-        deposit.getAccountId();
+        accountRepository
+                .findById(deposit.getAccountId())
+                .get()
+                .setBalance(accountRepository.findById(deposit.getAccountId()).get().getBalance() + deposit.getAmount());
         logger.info("DEPOSIT SUCCESSFULLY CREATED");
         depositRepository.save(deposit);
     }
