@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 public class Withdrawal {
@@ -34,6 +35,7 @@ public class Withdrawal {
     private Medium medium;
 
     @NotNull
+    @Positive
     private Double amount;
 
     @NotEmpty

@@ -2,6 +2,7 @@ package com.atm.atmproject.services;
 
 import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Deposit;
+import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.DepositRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class DepositService {
 
     private static final Logger logger = LoggerFactory.getLogger(DepositService.class);
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     private DepositRepository depositRepository;
@@ -34,16 +38,29 @@ public class DepositService {
     }
 
     public void createDeposit(Deposit deposit) {
+        accountRepository
+                .findById(deposit.getAccountId())
+                .get()
+                .setBalance(accountRepository.findById(deposit.getAccountId()).get().getBalance() + deposit.getAmount());
         logger.info("DEPOSIT SUCCESSFULLY CREATED");
         depositRepository.save(deposit);
     }
 
     public void updateDeposit(Deposit deposit, Long depositId) {
+        accountRepository.findById(depositRepository.findById(depositId).get().getAccountId()).get()
+                .setBalance(accountRepository.findById(depositRepository.findById(depositId).get().getAccountId()).get().getBalance() - depositRepository.findById(depositId).get().getAmount());
+        accountRepository
+                .findById(deposit.getAccountId())
+                .get()
+                .setBalance(depositRepository.findById(depositId).get().getAmount() + depositRepository.findById(depositId).get().getAmount() + deposit.getAmount());
         logger.info("DEPOSIT WITH ID: " + depositId + " SUCCESSFULLY UPDATED");
         depositRepository.save(deposit);
     }
 
     public void deleteDeposit(Long depositId) {
+
+        accountRepository.findById(depositRepository.findById(depositId).get().getAccountId()).get()
+                .setBalance(accountRepository.findById(depositRepository.findById(depositId).get().getAccountId()).get().getBalance() - depositRepository.findById(depositId).get().getAmount());
         logger.info("DEPOSIT WITH ID: " + depositId + " REMOVED FROM SYSTEM");
         depositRepository.deleteById(depositId);
     }
