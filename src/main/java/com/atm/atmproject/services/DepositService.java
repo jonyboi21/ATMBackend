@@ -52,6 +52,9 @@ public class DepositService {
     }
 
     public void deleteDeposit(Long depositId) {
+
+        accountRepository.findById(depositRepository.findById(depositId).get().getAccountId()).get()
+                .setBalance(accountRepository.findById(depositRepository.findById(depositId).get().getAccountId()).get().getBalance() - depositRepository.findById(depositId).get().getAmount());
         logger.info("DEPOSIT WITH ID: " + depositId + " REMOVED FROM SYSTEM");
         depositRepository.deleteById(depositId);
     }
