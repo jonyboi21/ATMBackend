@@ -53,6 +53,12 @@ public class WithdrawalService {
 
 
     public void updateWithdrawal(Withdrawal withdrawal, Long withdrawalId) {
+        accountRepository.findById(withdrawalRepository.findById(withdrawalId).get().getAccountId()).get()
+                .setBalance(accountRepository.findById(withdrawalRepository.findById(withdrawalId).get().getAccountId()).get().getBalance() + withdrawalRepository.findById(withdrawalId).get().getAmount());
+        accountRepository
+                .findById(withdrawal.getAccountId())
+                .get()
+                .setBalance(withdrawalRepository.findById(withdrawalId).get().getAmount() + withdrawalRepository.findById(withdrawalId).get().getAmount() - withdrawal.getAmount());
         logger.info("WITHDRAWAL WITH ID: " + withdrawalId + " SUCCESSFULLY UPDATED");
         withdrawalRepository.save(withdrawal);
     }
