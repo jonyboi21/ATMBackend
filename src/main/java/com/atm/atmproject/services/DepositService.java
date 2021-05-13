@@ -2,6 +2,7 @@ package com.atm.atmproject.services;
 
 import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Deposit;
+import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.DepositRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class DepositService {
 
     private static final Logger logger = LoggerFactory.getLogger(DepositService.class);
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     private DepositRepository depositRepository;
@@ -34,6 +38,9 @@ public class DepositService {
     }
 
     public void createDeposit(Deposit deposit) {
+        Double a = accountRepository.findById(deposit.getAccountId()).get().getBalance();
+          a += deposit.getAmount();
+        deposit.getAccountId();
         logger.info("DEPOSIT SUCCESSFULLY CREATED");
         depositRepository.save(deposit);
     }
