@@ -38,6 +38,13 @@ public class DepositService {
     }
 
     public void createDeposit(Deposit deposit) {
+<<<<<<< HEAD
+=======
+        accountRepository
+                .findById(deposit.getAccountId())
+                .get()
+                .setBalance(accountRepository.findById(deposit.getAccountId()).get().getBalance() + deposit.getAmount());
+>>>>>>> 179c818711935d1fced3a2a964730ffd7b366f0d
         logger.info("DEPOSIT SUCCESSFULLY CREATED");
         depositRepository.save(deposit);
     }
