@@ -47,6 +47,12 @@ public class DepositService {
     }
 
     public void updateDeposit(Deposit deposit, Long depositId) {
+        accountRepository.findById(depositRepository.findById(depositId).get().getAccountId()).get()
+                .setBalance(accountRepository.findById(depositRepository.findById(depositId).get().getAccountId()).get().getBalance() - depositRepository.findById(depositId).get().getAmount());
+        accountRepository
+                .findById(deposit.getAccountId())
+                .get()
+                .setBalance(depositRepository.findById(depositId).get().getAmount() + depositRepository.findById(depositId).get().getAmount() + deposit.getAmount());
         logger.info("DEPOSIT WITH ID: " + depositId + " SUCCESSFULLY UPDATED");
         depositRepository.save(deposit);
     }
