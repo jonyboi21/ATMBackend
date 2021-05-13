@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -34,6 +35,7 @@ public class Deposit {
     private Medium medium;
 
     @NotNull
+    @Min(value=0, message = "MUST BE A POSITIVE AMOUNT" )
     private Double amount;
 
     @NotEmpty

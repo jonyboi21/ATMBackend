@@ -2,6 +2,7 @@ package com.atm.atmproject.services;
 
 import com.atm.atmproject.controllers.BillController;
 import com.atm.atmproject.models.Bill;
+import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.BillRepo;
 import com.atm.atmproject.repositories.CustomerRepository;
 import org.slf4j.Logger;
@@ -28,6 +29,10 @@ public class BillService {
     @Autowired
     private BillController billController;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
+
     public Iterable<Bill> getAllByAccountId(Long accountId) {
 
         logger.info("SUCCESSFULLY RETRIEVED ALL BILLS BY ACCOUNT ID: " + accountId);
@@ -46,6 +51,9 @@ public class BillService {
     }
 
     public void createBill(Bill bill) {
+        accountRepository.findById(bill.getAccountId()).get()
+                .setBalance(bill.getPaymentAmount() - accountRepository.findById(bill.getAccountId()).get().getBalance());
+
         logger.info("BILL SUCCESSFULLY CREATED");
         billRepo.save(bill);
     }
