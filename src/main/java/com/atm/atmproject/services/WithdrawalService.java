@@ -2,6 +2,7 @@ package com.atm.atmproject.services;
 
 import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Withdrawal;
+import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.WithdrawalRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,9 @@ public class WithdrawalService {
     @Autowired
     private WithdrawalRepository withdrawalRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
     public Iterable<Withdrawal> getAllByAccountId(Long accountId) {
         if (!(withdrawalRepository.findAll().iterator().hasNext())) {
             logger.info("WITHDRAWALS ARE EMPTY, FAILED TO RETRIEVE WITHDRAWALS");
@@ -33,10 +37,20 @@ public class WithdrawalService {
         return withdrawalRepository.findById(withdrawalId);
     }
 
-    public void createWithdrawal(Withdrawal withdrawal) {
-        logger.info("WITHDRAWAL SUCCESSFULLY CREATED");
-        withdrawalRepository.save(withdrawal);
+    public void createWithdrawal(Withdrawal withdrawal) throws ResourceNotFoundException {
+        accountRepository.findById(withdrawal.getAccountId()).get().getBalance();
+        if (withdrawal.getAmount() > accountRepository.findById(withdrawal.getAccountId()).get().getBalance()) {
+            logger.info("CANNOT WITHDRAWAL AMOUNT GREATER THAN ACCOUNT BALANCE");
+            throw new ResourceNotFoundException("Cannot withdrawal amount greater than account balance.");
+        } else {
+            accountRepository
+                    .findById(withdrawal.getAccountId()).get()
+                    .setBalance(accountRepository.findById(withdrawal.getAccountId()).get().getBalance() - withdrawal.getAmount());
+            logger.info("WITHDRAWAL SUCCESSFULLY CREATED");
+            withdrawalRepository.save(withdrawal);
+        }
     }
+
 
     public void updateWithdrawal(Withdrawal withdrawal, Long withdrawalId) {
         logger.info("WITHDRAWAL WITH ID: " + withdrawalId + " SUCCESSFULLY UPDATED");

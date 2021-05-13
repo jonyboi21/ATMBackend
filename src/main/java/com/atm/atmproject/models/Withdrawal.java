@@ -35,7 +35,6 @@ public class Withdrawal {
     private Medium medium;
 
     @NotNull
-    @Positive
     private Double amount;
 
     @NotEmpty
