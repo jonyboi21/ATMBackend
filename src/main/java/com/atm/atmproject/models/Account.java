@@ -1,32 +1,34 @@
 package com.atm.atmproject.models;
 
-import javax.persistence.*;
+import com.atm.atmproject.enums.AccountType;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ACCOUNT_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "type")
-    private Enum type;
+    private AccountType type;
 
-    @Column(name = "NICKNAME")
+    @NotEmpty
     private String nickname;
 
-    @Column(name = "REWARDS")
+    @NotNull
     private Integer rewards;
 
-    @Column(name = "BALANCE")
+    @NotNull
     private Double balance;
 
-    @OneToOne
-    private Customer customer;
-
-    public Account() {
-    }
+    @NotNull
+    private Long customerId;
 
     public Long getId() {
         return id;
@@ -34,6 +36,14 @@ public class Account {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
     public String getNickname() {
@@ -60,22 +70,23 @@ public class Account {
         this.balance = balance;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
+                ", type=" + type +
                 ", nickname='" + nickname + '\'' +
                 ", rewards=" + rewards +
                 ", balance=" + balance +
-                ", customer=" + customer +
+                ", customerId=" + customerId +
                 '}';
     }
 }

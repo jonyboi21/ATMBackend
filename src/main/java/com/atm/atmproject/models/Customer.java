@@ -1,34 +1,35 @@
 package com.atm.atmproject.models;
 
-import org.apache.tomcat.jni.Address;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "CUSTOMER_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "FIRST_NAME")
+    @NotEmpty
     private String firstName;
 
-    @Column(name = "LAST_NAME")
+    @NotEmpty
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "ADDRESS")
+    @NotEmpty
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Address> addressSet;
 
-    public Long getId() {
+    public Long getCustomerId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCustomerId(Long customerId) {
+        this.id = customerId;
     }
 
     public String getFirstName() {
@@ -53,5 +54,15 @@ public class Customer {
 
     public void setAddressSet(Set<Address> addressSet) {
         this.addressSet = addressSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", addressSet=" + addressSet +
+                '}';
     }
 }
