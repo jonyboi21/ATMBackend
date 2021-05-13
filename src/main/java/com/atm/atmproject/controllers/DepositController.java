@@ -87,7 +87,8 @@ public class DepositController {
     public ResponseEntity<?> getDepositById(@PathVariable Long depositId) {
         verifyDeposit(depositId);
         Optional<Deposit> a = depositService.getById(depositId);
-        SuccessfulResponseOptional successfulResponseOptional = new SuccessfulResponseOptional(HttpStatus.OK.value(), null, a);
+        SuccessfulResponseOptional successfulResponseOptional = new SuccessfulResponseOptional(HttpStatus.OK.value(), null,
+                a);
         return new ResponseEntity<>(successfulResponseOptional, HttpStatus.OK);
     }
 

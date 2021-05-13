@@ -51,10 +51,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
-=======
-
->>>>>>> ef1f312077edc04a9a2f994a1df4c5b6c969dbbd
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

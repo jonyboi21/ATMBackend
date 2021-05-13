@@ -94,8 +94,7 @@ public class BillController {
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.GET)
     public ResponseEntity<?> getBillById(@PathVariable Long billId) {
         verifyBill(billId);
-        SuccessfulResponseObject successfulResponseObject
-                = new SuccessfulResponseObject(HttpStatus.OK.value(), null, billService.getById(billId));
+        SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.OK.value(), null, billService.getById(billId));
 
         return new ResponseEntity<>(successfulResponseObject, HttpStatus.OK);
     }
