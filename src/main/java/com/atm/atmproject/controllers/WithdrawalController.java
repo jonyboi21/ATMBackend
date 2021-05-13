@@ -91,7 +91,7 @@ public class WithdrawalController {
     }
 
     @RequestMapping(value = "/accounts/{accountId}/withdrawals", method = RequestMethod.POST)
-    public ResponseEntity<?> createWithdrawal(@PathVariable Long accountId,@Validated @RequestBody Withdrawal withdrawal) {
+    public ResponseEntity<?> createWithdrawal(@PathVariable Long accountId,@Validated @RequestBody Withdrawal withdrawal) throws ResourceNotFoundException {
         verifyCreate(accountId);
         withdrawalService.createWithdrawal(withdrawal);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(HttpStatus.CREATED.value(), "Created withdrawal and deducted it from the account", withdrawal);
