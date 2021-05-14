@@ -36,8 +36,7 @@ public class Withdrawal {
     private Medium medium;
 
     @NotNull
-//    @Positive
-    @Min(value=0, message = "MUST BE A POSITIVE AMOUNT" )
+    @Min(value = 0)
     private Double amount;
 
     @NotEmpty

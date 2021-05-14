@@ -35,7 +35,7 @@ public class Deposit {
     private Medium medium;
 
     @NotNull
-    @Min(value=0, message = "MUST BE A POSITIVE AMOUNT" )
+    @Min(value = 0)
     private Double amount;
 
     @NotEmpty
