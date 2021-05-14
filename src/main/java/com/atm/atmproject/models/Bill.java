@@ -3,8 +3,6 @@ package com.atm.atmproject.models;
 import com.atm.atmproject.enums.Status;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

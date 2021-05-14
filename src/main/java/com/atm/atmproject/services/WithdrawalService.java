@@ -51,7 +51,6 @@ public class WithdrawalService {
         }
     }
 
-
     public void updateWithdrawal(Withdrawal withdrawal, Long withdrawalId) {
         accountRepository.findById(withdrawalRepository.findById(withdrawalId).get().getAccountId()).get()
                 .setBalance(accountRepository.findById(withdrawalRepository.findById(withdrawalId).get().getAccountId()).get().getBalance() + withdrawalRepository.findById(withdrawalId).get().getAmount());
