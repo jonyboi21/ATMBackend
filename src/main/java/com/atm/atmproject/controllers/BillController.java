@@ -110,6 +110,7 @@ public class BillController {
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateBill(@RequestBody Bill bill, @PathVariable Long billId) {
         verifyUpdate(billId);
+
         billService.updateBill(bill, billId);
         SuccessfulResponseObject successfulResponseObject = new SuccessfulResponseObject(202, "Accepted bill modification", null);
         return new ResponseEntity<>(successfulResponseObject, HttpStatus.OK);
@@ -124,12 +125,13 @@ public class BillController {
     }
 
     @RequestMapping(value = "/bills/{billId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deletePoll(@PathVariable Long billId) {
+    public ResponseEntity<?> deleteBill(@PathVariable Long billId) {
         Optional<Bill> bill = billService.getById(billId);
         if (bill.isEmpty()) {
-            logger.info("ERROR DELETING BILL WITH ID: " + billId);
+            logger.info("CANNOT DELETE NON-EXISTING BILL");
             throw new ResourceNotFoundException("This id: " + billId + " does not exist in bills");
         } else {
+            logger.info("BILL WITH ID: " + billId + " SUCCESSFULLY UPDATED");
             billService.deleteBill(billId);
             SuccessfulResponseOptional successfulResponseOptional = new SuccessfulResponseOptional(204, null, null);
             return new ResponseEntity<>(successfulResponseOptional, HttpStatus.OK);
