@@ -40,6 +40,7 @@ public class Bill {
 
     @NotNull
     @Min(value = 0)
+
     private Double paymentAmount;
 
     @NotNull
