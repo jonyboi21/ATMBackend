@@ -1,6 +1,7 @@
 package com.atm.atmproject.services;
 
 import com.atm.atmproject.controllers.BillController;
+import com.atm.atmproject.exception.ResourceNotFoundException;
 import com.atm.atmproject.models.Bill;
 import com.atm.atmproject.repositories.AccountRepository;
 import com.atm.atmproject.repositories.BillRepo;
@@ -34,7 +35,6 @@ public class BillService {
 
 
     public Iterable<Bill> getAllByAccountId(Long accountId) {
-
         logger.info("SUCCESSFULLY RETRIEVED ALL BILLS BY ACCOUNT ID: " + accountId);
         return billRepo.getAllBillsByAccountId(accountId);
     }
@@ -46,25 +46,53 @@ public class BillService {
     }
 
     public Optional<Bill> getById(Long billId) {
+        if (!billRepo.existsById(billId)) {
+            logger.info("CANNOT RETRIEVE BILL THAT DOESN'T EXISTS");
+        } else {
+
         logger.info("SUCCESSFULLY RETRIEVED Bill WITH THE ID: " + billId);
+        }
         return billRepo.findById(billId);
     }
 
+
     public void createBill(Bill bill) {
         accountRepository.findById(bill.getAccountId()).get()
-                .setBalance(bill.getPaymentAmount() - accountRepository.findById(bill.getAccountId()).get().getBalance());
+                .setBalance(accountRepository.findById(bill.getAccountId()).get().getBalance() - bill.getPaymentAmount());
+
 
         logger.info("BILL SUCCESSFULLY CREATED");
         billRepo.save(bill);
     }
 
     public void updateBill(Bill bill, Long billId) {
-        logger.info("BILL WITH ID: " + billId + " SUCCESSFULLY UPDATED");
-        billRepo.save(bill);
+        accountRepository.findById(billRepo.findById(billId).get().getAccountId()).get()
+                .setBalance(billRepo.findById(billId).get().getPaymentAmount() + accountRepository.findById(billRepo.findById(billId)
+                        .get().getAccountId()).get().getBalance());
+
+        accountRepository.findById(bill.getAccountId())
+                .get()
+                .setBalance(billRepo.findById(billId).get().getPaymentAmount() - bill.getPaymentAmount() + billRepo.findById(billId).get().getPaymentAmount());
+//        if (!(billRepo.existsById(bill.getId())))
+//        {
+//            logger.info("CANNOT UPDATE NON-EXISTING BILL");
+//            throw new ResourceNotFoundException("ERROR");
+//        } else {
+//            bill.setId(billId);
+//        logger.info("BILL WITH ID: " + billId + " SUCCESSFULLY UPDATED");
+//        billRepo.save(bill);
+
+
     }
 
     public void deleteBill(Long billId) {
-        logger.info("BILL WITH ID: " + billId + " REMOVED FROM SYSTEM");
-        billRepo.deleteById(billId);
+        if (!(billRepo.existsById(billId))) {
+//            logger.info("CANNOT DELETE NON-EXISTING BILL");
+            throw new ResourceNotFoundException("Bill DOES NOT EXIST");
+        }else
+            billRepo.deleteById(billId);
+//        logger.info("BILL WITH ID: " + billId + " REMOVED FROM SYSTEM");
     }
+
+
 }
