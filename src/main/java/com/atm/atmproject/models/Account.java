@@ -17,6 +17,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     private AccountType type;
 
     @NotEmpty
