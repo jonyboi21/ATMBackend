@@ -1,6 +1,8 @@
 package com.atm.atmproject.models;
 
 import com.atm.atmproject.enums.Status;
+
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 
@@ -39,6 +41,7 @@ public class Bill {
     private String upcomingPaymentDate;
 
     @NotNull
+    @Min(value = 0)
     private Double paymentAmount;
 
     @NotNull

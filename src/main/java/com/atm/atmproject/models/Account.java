@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +26,7 @@ public class Account {
     private Integer rewards;
 
     @NotNull
+    @Min(value = 0)
     private Double balance;
 
     @NotNull
