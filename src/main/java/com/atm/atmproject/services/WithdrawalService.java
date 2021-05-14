@@ -41,7 +41,7 @@ public class WithdrawalService {
         accountRepository.findById(withdrawal.getAccountId()).get().getBalance();
         if (withdrawal.getAmount() > accountRepository.findById(withdrawal.getAccountId()).get().getBalance()) {
             logger.info("CANNOT WITHDRAWAL AMOUNT GREATER THAN ACCOUNT BALANCE");
-            throw new ResourceNotFoundException("Cannot withdrawal amount greater than account balance.");
+            throw new ResourceNotFoundException("Cannot withdrawal amount greater than account balance. Your current balance is: $" + accountRepository.findById(withdrawal.getAccountId()).get().getBalance());
         } else {
             accountRepository
                     .findById(withdrawal.getAccountId()).get()
@@ -50,7 +50,6 @@ public class WithdrawalService {
             withdrawalRepository.save(withdrawal);
         }
     }
-
 
     public void updateWithdrawal(Withdrawal withdrawal, Long withdrawalId) {
         accountRepository.findById(withdrawalRepository.findById(withdrawalId).get().getAccountId()).get()
