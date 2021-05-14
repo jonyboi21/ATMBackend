@@ -66,26 +66,27 @@ public class BillService {
     }
 
     public void updateBill(Bill bill, Long billId) {
-        accountRepository.findById(billRepo.findById(billId).get().getAccountId()).get()
-                .setBalance(billRepo.findById(billId).get().getPaymentAmount() + accountRepository.findById(billRepo.findById(billId)
-                        .get().getAccountId()).get().getBalance());
+        accountRepository.findById(billRepo.findById(billId).get().getAccountId()).get().setBalance(
+                accountRepository.findById(billRepo.findById(billId).get().getAccountId()).get().getBalance() + billRepo.findById(billId).get().getPaymentAmount());
 
-        accountRepository.findById(bill.getAccountId())
-                .get()
-                .setBalance(billRepo.findById(billId).get().getPaymentAmount() - bill.getPaymentAmount() + billRepo.findById(billId).get().getPaymentAmount());
-//        if (!(billRepo.existsById(bill.getId())))
-//        {
-//            logger.info("CANNOT UPDATE NON-EXISTING BILL");
-//            throw new ResourceNotFoundException("ERROR");
-//        } else {
-//            bill.setId(billId);
-//        logger.info("BILL WITH ID: " + billId + " SUCCESSFULLY UPDATED");
-//        billRepo.save(bill);
+        accountRepository.findById(bill.getAccountId()).get()
+                .setBalance( accountRepository.findById(bill.getAccountId()).get().getBalance() - bill.getPaymentAmount());
 
+        if (!(billRepo.existsById(bill.getId())))
+        {
+            logger.info("CANNOT UPDATE NON-EXISTING BILL");
+            throw new ResourceNotFoundException("ERROR");
+        } else {
+            bill.setId(billId);
+        logger.info("BILL WITH ID: " + billId + " SUCCESSFULLY UPDATED");
+        billRepo.save(bill);}
 
     }
 
     public void deleteBill(Long billId) {
+        accountRepository.findById(billRepo.findById(billId).get().getAccountId()).get().setBalance(
+                accountRepository.findById(billRepo.findById(billId).get().getAccountId()).get().getBalance() + billRepo.findById(billId).get().getPaymentAmount());
+
         if (!(billRepo.existsById(billId))) {
 //            logger.info("CANNOT DELETE NON-EXISTING BILL");
             throw new ResourceNotFoundException("Bill DOES NOT EXIST");
