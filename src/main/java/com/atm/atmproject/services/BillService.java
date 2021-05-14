@@ -66,13 +66,17 @@ public class BillService {
     }
 
     public void updateBill(Bill bill, Long billId) {
-        accountRepository.findById(billRepo.findById(billId).get().getAccountId()).get()
-                .setBalance(billRepo.findById(billId).get().getPaymentAmount() + accountRepository.findById(billRepo.findById(billId)
-                        .get().getAccountId()).get().getBalance());
 
         accountRepository.findById(bill.getAccountId())
                 .get()
                 .setBalance(billRepo.findById(billId).get().getPaymentAmount() - bill.getPaymentAmount() + billRepo.findById(billId).get().getPaymentAmount());
+
+
+        accountRepository.findById(billRepo.findById(billId).get().getAccountId()).get()
+                .setBalance(billRepo.findById(billId).get().getPaymentAmount() + accountRepository.findById(billRepo.findById(billId)
+                        .get().getAccountId()).get().getBalance());
+
+
 //        if (!(billRepo.existsById(bill.getId())))
 //        {
 //            logger.info("CANNOT UPDATE NON-EXISTING BILL");
